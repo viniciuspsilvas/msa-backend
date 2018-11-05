@@ -1,0 +1,90 @@
+{
+  "name": "Message",
+  "plural": "Messages",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "body": {
+      "type": "string"
+    },
+    "createdAt": {
+      "type": "date",
+      "required": true,
+      "default": "$now"
+    },
+    "sentAt": {
+      "type": "date"
+    },
+    "isRead": {
+      "type": "boolean",
+      "default": false
+    },
+    "isDownloaded": {
+      "type": "boolean",
+      "default": false
+    },
+    "isArchived": {
+      "type": "boolean",
+      "default": false
+    },
+    "severity": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "user": {
+      "type": "belongsTo",
+      "model": "CustomUser",
+      "foreignKey": "customUserId",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "acls": [],
+  "methods": {
+    "sendMessage": {
+      "accepts": [
+        {
+          "arg": "userId",
+          "type": "number",
+          "required": true,
+          "description": "Id of user"
+        },
+        {
+          "arg": "title",
+          "type": "string",
+          "required": true,
+          "description": "Title of message"
+        },
+        {
+          "arg": "body",
+          "type": "string",
+          "required": true,
+          "description": "Body of the message"
+        }
+      ],
+      "returns": [
+        {
+          "arg": "return",
+          "type": "string",
+          "root": false,
+          "description": ""
+        }
+      ],
+      "description": "Create a message and send a notification to the user.",
+      "http": {
+        "verb": "post",
+        "path": "/sendMessage"
+      }
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "name": "Enrollment",
+  "plural": "Enrollments",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "date": {
+      "type": "date",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "physician": {
+      "type": "belongsTo",
+      "model": "UserGroup",
+      "foreignKey": "userGroupId"
+    },
+    "patient": {
+      "type": "belongsTo",
+      "model": "CustomUser",
+      "foreignKey": "customUserId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

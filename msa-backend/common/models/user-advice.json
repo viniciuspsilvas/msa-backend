@@ -1,0 +1,31 @@
+{
+  "name": "UserAdvice",
+  "plural": "UserAdvices",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "description": {
+      "type": "string"
+    },
+    "token": {
+      "type": "string"
+    },
+    "isActive": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "user": {
+      "type": "belongsTo",
+      "model": "CustomUser",
+      "foreignKey": "customUserId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

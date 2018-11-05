@@ -1,0 +1,26 @@
+{
+  "name": "CustomUser",
+  "plural": "CustomUsers",
+  "base": "User",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "fullname": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "enrollments": {
+      "type": "hasMany",
+      "model": "UserGroup",
+      "foreignKey": "customUserId",
+      "through": "Enrollment"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

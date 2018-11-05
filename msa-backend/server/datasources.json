@@ -1,0 +1,16 @@
+{
+  "db": {
+    "name": "db",
+    "connector": "memory"
+  },
+  "pg": {
+    "host": "localhost",
+    "port": 0,
+    "url": "postgres://postgres:postgres@localhost/mindroom-student-app",
+    "database": "mindroom-student-app",
+    "password": "postgres",
+    "name": "pg",
+    "user": "postgres",
+    "connector": "postgresql"
+  }
+}

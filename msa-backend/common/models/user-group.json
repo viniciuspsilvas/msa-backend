@@ -1,0 +1,33 @@
+{
+  "name": "UserGroup",
+  "plural": "UserGroups",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "string"
+    },
+    "isActive": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "enrollments": {
+      "type": "hasMany",
+      "model": "CustomUser",
+      "foreignKey": "userGroupId",
+      "through": "Enrollment"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
