@@ -7,9 +7,14 @@
     "validateUpsert": true
   },
   "properties": {
+    "firstname": {
+      "type": "string"
+    },
+    "lastname": {
+      "type": "string"
+    },
     "fullname": {
-      "type": "string",
-      "required": true
+      "type": "string"
     }
   },
   "validations": [],
@@ -21,6 +26,35 @@
       "through": "Enrollment"
     }
   },
-  "acls": [],
-  "methods": {}
+  "acls": [
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "loginMoodle"
+    }
+  ],
+  "methods": {
+    "loginMoodle": {
+      "accepts": [
+        {
+          "arg": "login",
+          "type": "string"
+        },
+        {
+          "arg": "password",
+          "type": "string"
+        }
+      ],
+      "returns": {
+        "arg": "return",
+        "type": "string"
+      },
+      "http": {
+        "verb": "post"
+      },
+      "description": "This method do login by Moodle"
+    }
+  }
 }

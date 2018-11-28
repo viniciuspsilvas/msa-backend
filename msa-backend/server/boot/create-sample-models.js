@@ -16,6 +16,10 @@ module.exports = function (app) {
         console.log('> Messages created sucessfully');
       });
 
+      createRoles(results.users[0], function(err) {
+        console.log('> Roles created sucessfully');
+      });
+
       createUserAdvices(results.users[0], function(err) {
         console.log('> UserAdvices created sucessfully');
       });
@@ -30,18 +34,43 @@ module.exports = function (app) {
 
     });
 
-  function createUsers(cb) {
-    app.dataSources.db.automigrate('User', function (err) {
-      if (err) throw err;
+    function createUsers(cb) {
+      app.dataSources.pg.automigrate('CustomUser', function (err) {
+        if (err) throw err;
+  
+        app.models.CustomUser.create([{
+          email: 'viniciuspsilvas@gmail.com',
+          password: '1234',
+          fullname: 'Vinicius Pereira Silva'
+  
+        }], cb);
+      });
+    };
 
-      app.models.User.create([{
-        email: 'viniciuspsilvas@gmail.com',
-        password: '1234'
-        //fullname: 'Vinicius Pereira Silva'
+    function createRoles(user,cb) {
+      var RoleMapping = app.models.RoleMapping;
 
-      }], cb);
-    });
-  };
+      app.dataSources.db.automigrate('Role', function (err) {
+        if (err) throw err;
+
+          //create the admin role
+          app.models.Role.create({
+            name: 'admin'
+          }, function(err, role) {
+            if (err) cb(err);
+
+            //make bob an admin
+            role.principals.create({
+              principalType: RoleMapping.USER,
+              principalId: user.id
+            }, function(err, principal) {
+              cb(err);
+              console.log('Created principal:', principal);
+            });
+          });
+          
+      });
+    };
 
   function createMessages(user, cb) {
     app.dataSources.pg.automigrate('Message', function (err) {

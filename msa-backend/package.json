@@ -8,7 +8,8 @@
   "scripts": {
     "lint": "eslint .",
     "start": "nodemon server/server.js --watch common --watch server",
-    "posttest": "npm run lint"
+    "posttest": "npm run lint",
+    "test:debug": "react-scripts --inspect-brk test --runInBand"
   },
   "dependencies": {
     "async": "^2.6.1",
