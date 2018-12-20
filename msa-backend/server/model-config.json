@@ -46,11 +46,11 @@
     "dataSource": "pg",
     "public": true
   },
-  "UserGroup": {
+  "StudentGroup": {
     "dataSource": "pg",
     "public": true
   },
-  "UserAdvice": {
+  "StudentAdvice": {
     "dataSource": "pg",
     "public": true
   },
@@ -58,7 +58,7 @@
     "dataSource": "pg",
     "public": true
   },
-  "CustomUser": {
+  "Student": {
     "dataSource": "pg",
     "public": true
   }

@@ -19,9 +19,9 @@ module.exports = function (app) {
       createRoles(results.users[0], function(err) {
         console.log('> Roles created sucessfully');
       });
-
+ 
       createUserAdvices(results.users[0], function(err) {
-        console.log('> UserAdvices created sucessfully');
+        console.log('> StudentAdvices created sucessfully');
       });
 
       createEnrollment(results.users[0], results.userGroups[0], function(err) {
@@ -35,10 +35,10 @@ module.exports = function (app) {
     });
 
     function createUsers(cb) {
-      app.dataSources.pg.automigrate('CustomUser', function (err) {
+      app.dataSources.pg.automigrate('Student', function (err) {
         if (err) throw err;
   
-        app.models.CustomUser.create([{
+        app.models.Student.create([{
           email: 'viniciuspsilvas@gmail.com',
           password: '1234',
           fullname: 'Vinicius Pereira Silva'
@@ -93,23 +93,23 @@ module.exports = function (app) {
   };
 
   function createUserAdvices(user, cb) {
-    app.dataSources.pg.automigrate('UserAdvice', function (err) {
+    app.dataSources.pg.automigrate('StudentAdvice', function (err) {
       if (err) throw err;
 
-      app.models.UserAdvice.create([{
+      app.models.StudentAdvice.create([{
         description: 'Samsung Galaxy S9+',
         token: 'ExponentPushToken[yApQ4KPHAZjJLD1UYzEv7u]',
-        userId: user.id,
+        studentId: user.id,
 
       }], cb);
     });
   };
 
   function createUserGroups(cb) {
-    app.dataSources.pg.automigrate('UserGroup', function (err) {
+    app.dataSources.pg.automigrate('StudentGroup', function (err) {
       if (err) throw err;
 
-      app.models.UserGroup.create([{
+      app.models.StudentGroup.create([{
         name: 'CUA60315 - Advanced Diploma of Graphic Design',
         description: 'Advanced Diploma of Graphic Design',
       },

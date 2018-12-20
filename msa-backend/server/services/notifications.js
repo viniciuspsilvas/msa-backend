@@ -1,6 +1,6 @@
 const { Expo } = require('expo-server-sdk');
 
-function sendNotification(token) {
+function sendNotification(token, fullname) {
 
     // Create a new Expo SDK client
     let expo = new Expo();
@@ -16,7 +16,7 @@ function sendNotification(token) {
         messages.push({
             to: pushToken,
             sound: 'default',
-            body: 'This is a test notification.',
+            body: fullname,
             data: { withSome: 'data' },
         })
     } else {

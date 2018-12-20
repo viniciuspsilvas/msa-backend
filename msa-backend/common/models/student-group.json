@@ -1,16 +1,17 @@
 {
-  "name": "UserAdvice",
-  "plural": "UserAdvices",
+  "name": "StudentGroup",
+  "plural": "StudentGroups",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true
   },
   "properties": {
-    "description": {
-      "type": "string"
+    "name": {
+      "type": "string",
+      "required": true
     },
-    "token": {
+    "description": {
       "type": "string"
     },
     "isActive": {
@@ -20,10 +21,11 @@
   },
   "validations": [],
   "relations": {
-    "user": {
-      "type": "belongsTo",
-      "model": "CustomUser",
-      "foreignKey": "customUserId"
+    "enrollments": {
+      "type": "hasMany",
+      "model": "StudentGroup",
+      "foreignKey": "studentGroupId",
+      "through": "Enrollment"
     }
   },
   "acls": [],

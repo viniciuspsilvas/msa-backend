@@ -16,13 +16,13 @@
   "relations": {
     "physician": {
       "type": "belongsTo",
-      "model": "UserGroup",
-      "foreignKey": "userGroupId"
+      "model": "StudentGroup",
+      "foreignKey": "studentGroupId"
     },
     "patient": {
       "type": "belongsTo",
-      "model": "CustomUser",
-      "foreignKey": "customUserId"
+      "model": "Student",
+      "foreignKey": "studentId"
     }
   },
   "acls": [],

@@ -42,49 +42,13 @@
   "relations": {
     "user": {
       "type": "belongsTo",
-      "model": "CustomUser",
-      "foreignKey": "customUserId",
+      "model": "Student",
+      "foreignKey": "studentId",
       "options": {
         "nestRemoting": true
       }
     }
   },
   "acls": [],
-  "methods": {
-    "sendMessage": {
-      "accepts": [
-        {
-          "arg": "userId",
-          "type": "number",
-          "required": true,
-          "description": "Id of user"
-        },
-        {
-          "arg": "title",
-          "type": "string",
-          "required": true,
-          "description": "Title of message"
-        },
-        {
-          "arg": "body",
-          "type": "string",
-          "required": true,
-          "description": "Body of the message"
-        }
-      ],
-      "returns": [
-        {
-          "arg": "return",
-          "type": "string",
-          "root": false,
-          "description": ""
-        }
-      ],
-      "description": "Create a message and send a notification to the user.",
-      "http": {
-        "verb": "post",
-        "path": "/sendMessage"
-      }
-    }
-  }
+  "methods": {}
 }

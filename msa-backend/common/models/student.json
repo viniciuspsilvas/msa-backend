@@ -1,6 +1,6 @@
 {
-  "name": "CustomUser",
-  "plural": "CustomUsers",
+  "name": "Student",
+  "plural": "Students",
   "base": "User",
   "idInjection": true,
   "options": {
@@ -21,8 +21,8 @@
   "relations": {
     "enrollments": {
       "type": "hasMany",
-      "model": "UserGroup",
-      "foreignKey": "customUserId",
+      "model": "StudentGroup",
+      "foreignKey": "studentId",
       "through": "Enrollment"
     }
   },
@@ -33,28 +33,31 @@
       "principalId": "$everyone",
       "permission": "ALLOW",
       "property": "loginMoodle"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "find"
     }
   ],
   "methods": {
     "loginMoodle": {
       "accepts": [
         {
-          "arg": "login",
-          "type": "string"
-        },
-        {
-          "arg": "password",
-          "type": "string"
+          "arg": "credencial",
+          "type": "object"
         }
       ],
       "returns": {
         "arg": "return",
         "type": "string"
       },
+      "description": "This method do login by Moodle",
       "http": {
         "verb": "post"
-      },
-      "description": "This method do login by Moodle"
+      }
     }
   }
 }
