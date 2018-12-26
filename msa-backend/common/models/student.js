@@ -5,10 +5,7 @@ module.exports = function (Student) {
     Student.loginMoodle = function (credencial, cb) {
 
         var { login, password, tokenAdvice, adviceDesc } = credencial;
-
-
         var passwordHash = require('password-hash');
-
         
         let app = require('../../server/server');
         let urlMoodle = app.get('url-moodle');
@@ -65,14 +62,11 @@ module.exports = function (Student) {
                                 StudentAdvice.findOrCreate({ where: { "token": tokenAdvice }}, adviceData);
                                 cb(null, student)
                             });
-
-
                         });
 
                 } else {
                     throw loginReturn.error;
                 }
-
             }).catch(err => cb(err, login))
     }
 };

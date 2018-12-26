@@ -15,6 +15,9 @@
     },
     "fullname": {
       "type": "string"
+    },
+    "phone": {
+      "type": "string"
     }
   },
   "validations": [],
