@@ -158,15 +158,15 @@ function createMessages(user, cb) {
     app.models.Message.create([{
       title: 'Title Message 1',
       body: 'Body 1 description Body description Body description description',
-      userId: user.id,
+      studentId: user.id,
     }, {
       title: 'Title Message 2',
       body: 'Body 2 description Body description Body description description',
-      userId: user.id,
+      studentId: user.id,
     }, {
       title: 'Title Message 3',
       body: 'Body 3 description Body description Body description description',
-      userId: user.id,
+      studentId: user.id,
     }], cb);
   });
 };

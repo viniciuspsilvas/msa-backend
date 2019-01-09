@@ -18,7 +18,7 @@ module.exports = function (Message) {
         var StudentAdvice = app.models.StudentAdvice;
 
         // Find the advices of the user
-        StudentAdvice.findOne({ where: { "userId": userId } }, function (err, studentAdvice) {
+        StudentAdvice.findOne({ where: { "studentId": userId } }, function (err, studentAdvice) {
             notif.sendNotification(studentAdvice.token);
 
         });

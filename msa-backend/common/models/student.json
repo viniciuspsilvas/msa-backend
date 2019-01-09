@@ -27,6 +27,11 @@
       "model": "StudentGroup",
       "foreignKey": "studentId",
       "through": "Enrollment"
+    },
+    "advices": {
+      "type": "hasMany",
+      "model": "StudentAdvice",
+      "foreignKey": "studentId"
     }
   },
   "acls": [
@@ -43,6 +48,13 @@
       "principalId": "$everyone",
       "permission": "ALLOW",
       "property": "find"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "findById"
     }
   ],
   "methods": {
