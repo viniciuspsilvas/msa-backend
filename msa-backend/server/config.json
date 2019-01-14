@@ -1,6 +1,6 @@
 {
   "restApiRoot": "/api",
-  "host": "0.0.0.0",
+  "host": "phpstack-209922-714883.cloudwaysapps.com",
   "port": 3000,
   "remoting": {
     "context": false,
