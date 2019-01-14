@@ -4,7 +4,7 @@
     "connector": "memory"
   },
   "pg": {
-    "host": "localhost",
+    "host": "128.199.213.184",
     "database": "rxvmgymkag",
     "password": "YMYqh8YY6g",
     "name": "pg",
