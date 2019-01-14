@@ -4,7 +4,7 @@
     "connector": "memory"
   },
   "pg": {
-    "host": "phpstack-209922-714883.cloudwaysapps.com",
+    "host": "localhost",
     "database": "rxvmgymkag",
     "password": "YMYqh8YY6g",
     "name": "pg",
