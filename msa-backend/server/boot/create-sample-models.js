@@ -39,6 +39,7 @@ module.exports = function (app) {
       if (err) throw err;
 
       app.models.Student.create([
+      
         {
           email: 'viniciuspsilvas@gmail.com',
           lastname: 'Silva',
@@ -47,7 +48,10 @@ module.exports = function (app) {
           password: 'Password!123',
           fullname: 'Vinicius Pereira Silva',
           phone: '0451472462'
-        }, {
+        },
+        
+        
+          /* {
           email: 'glaucomp@hotmail.com',
           fullname: 'Glauco Martins Pereira',
           firtsname: 'Glauco',
@@ -120,109 +124,116 @@ module.exports = function (app) {
           username: 'Capc77',
           password: 'Password!123',
           phone: '0451472462'
-        }
+        } */
 
       ], cb);
-  });
-};
-
-function createRoles(user, cb) {
-  var RoleMapping = app.models.RoleMapping;
-
-  app.dataSources.db.automigrate('Role', function (err) {
-    if (err) throw err;
-
-    //create the admin role
-    app.models.Role.create({
-      name: 'admin'
-    }, function (err, role) {
-      if (err) cb(err);
-
-      //make bob an admin
-      role.principals.create({
-        principalType: RoleMapping.USER,
-        principalId: user.id
-      }, function (err, principal) {
-        cb(err);
-        console.log('Created principal:', principal);
-      });
     });
+  };
 
-  });
-};
+  function createRoles(user, cb) {
+    var RoleMapping = app.models.RoleMapping;
 
-function createMessages(user, cb) {
-  app.dataSources.pg.automigrate('Message', function (err) {
-    if (err) throw err;
+    app.dataSources.db.automigrate('Role', function (err) {
+      if (err) throw err;
 
-    app.models.Message.create([{
-      title: 'Title Message 1',
-      body: 'Body 1 description Body description Body description description',
-      studentId: user.id,
-    }, {
-      title: 'Title Message 2',
-      body: 'Body 2 description Body description Body description description',
-      studentId: user.id,
-    }, {
-      title: 'Title Message 3',
-      body: 'Body 3 description Body description Body description description',
-      studentId: user.id,
-    }], cb);
-  });
-};
+      //create the admin role
+      app.models.Role.create({
+        name: 'admin'
+      }, function (err, role) {
+        if (err) cb(err);
 
-function createUserAdvices(user, cb) {
-  app.dataSources.pg.automigrate('StudentAdvice', function (err) {
-    if (err) throw err;
+        //make bob an admin
+        role.principals.create({
+          principalType: RoleMapping.USER,
+          principalId: user.id
+        }, function (err, principal) {
+          cb(err);
+          console.log('Created principal:', principal);
+        });
+      });
 
-    app.models.StudentAdvice.create([{
-      description: 'Samsung Galaxy S9+',
-      token: 'ExponentPushToken[yApQ4KPHAZjJLD1UYzEv7u]',
-      studentId: user.id,
+    });
+  };
 
-    }], cb);
-  });
-};
-
-function createUserGroups(cb) {
-  app.dataSources.pg.automigrate('StudentGroup', function (err) {
-    if (err) throw err;
-
-    app.models.StudentGroup.create([{
-      name: 'CUA60315 - Advanced Diploma of Graphic Design',
-      description: 'Advanced Diploma of Graphic Design',
-    },
-    {
-      name: 'ICT40515 - Certificate IV in Programming',
-      description: 'Certificate IV in Programming',
-    },
-    {
-      name: 'ICT50615 - Diploma of Website Development',
-      description: 'Diploma of Website Development',
-
-    },
-    {
-      name: 'CUA60335 - Diploma of Project Management',
-      description: 'Diploma of Project Management',
-
-    }], cb);
-  });
-};
+  function createMessages(user, cb) {
+    app.dataSources.pg.automigrate('Message', function (err) {
+      if (err) throw err;
 
 
-function createEnrollment(user, userGroup, cb) {
+  /*     const msgs = [{
+        title: 'Title Message 1',
+        body: 'Body 1 description Body description Body description description',
+        studentId: user.id,
+      }, {
+        title: 'Title Message 2',
+        body: 'Body 2 description Body description Body description description',
+        studentId: user.id,
+      }, {
+        title: 'Title Message 3',
+        body: 'Body 3 description Body description Body description description',
+        studentId: user.id,
+      }] */
 
-  app.dataSources.pg.automigrate('Enrollment', function (err) {
-    if (err) throw err;
+      const msgs = [];
 
-    app.models.Enrollment.create([{
+      app.models.Message.create(msgs, cb);
+    });
+  };
 
-      userId: user.id,
-      userGroupId: userGroup.id,
-      date: Date.now()
+  function createUserAdvices(user, cb) {
+    app.dataSources.pg.automigrate('StudentAdvice', function (err) {
+      if (err) throw err;
 
-    }], cb);
-  });
-};
+      app.models.StudentAdvice.create([], cb);
+/* 
+      app.models.StudentAdvice.create([{
+        description: 'Samsung Galaxy S9+',
+        token: 'ExponentPushToken[yApQ4KPHAZjJLD1UYzEv7u]',
+        studentId: user.id,
+
+      }], cb); */
+    });
+  };
+
+  function createUserGroups(cb) {
+    app.dataSources.pg.automigrate('StudentGroup', function (err) {
+      if (err) throw err;
+
+      app.models.StudentGroup.create([{
+        name: 'CUA60315 - Advanced Diploma of Graphic Design',
+        description: 'Advanced Diploma of Graphic Design',
+      },
+      {
+        name: 'ICT40515 - Certificate IV in Programming',
+        description: 'Certificate IV in Programming',
+      },
+      {
+        name: 'ICT50615 - Diploma of Website Development',
+        description: 'Diploma of Website Development',
+
+      },
+      {
+        name: 'CUA60335 - Diploma of Project Management',
+        description: 'Diploma of Project Management',
+
+      }], cb);
+    });
+  };
+
+
+  function createEnrollment(user, userGroup, cb) {
+
+    app.dataSources.pg.automigrate('Enrollment', function (err) {
+      if (err) throw err;
+
+      app.models.Enrollment.create([{
+
+        userId: user.id,
+        userGroupId: userGroup.id,
+        date: Date.now()
+
+      }], cb);
+    });
+  };
 };
 

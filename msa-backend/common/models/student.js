@@ -2,6 +2,39 @@
 
 module.exports = function (Student) {
 
+    // description???
+    Student.observe('loaded', function (ctx, next) {
+        if (ctx.instance) {
+          var sum = 0;
+      
+          Student.app.models.StudentAdvice.find({
+            where: {
+                studentId: ctx.instance.id
+            },
+            fields: {
+              givenNumericProperty: true
+            }
+          }, function (err, studentAdvice) {
+            if (err) return next(err);
+      
+            if (studentAdvice.length) {
+              studentAdvice.forEach(function (model2) {
+                sum += model2.givenNumericProperty;
+              });
+      
+              ctx.instance.calculatedProperty = sum;
+            }
+      
+            return next();
+          });
+      
+        } else {
+          return next();
+        }
+      });
+      
+
+    // This method to the login on Moodle Server by API
     Student.loginMoodle = function (credencial, cb) {
 
         var { login, password, tokenAdvice, adviceDesc } = credencial;
