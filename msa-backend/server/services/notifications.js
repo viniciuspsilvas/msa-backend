@@ -31,6 +31,8 @@ function sendNotification(token, fullname) {
     // compressed).
     let chunks = expo.chunkPushNotifications(messages);
     let tickets = [];
+
+    /*
     (async () => {
         // Send the chunks to the Expo push notification service. There are
         // different strategies you could use. A simple one is to send one chunk at a
@@ -49,7 +51,7 @@ function sendNotification(token, fullname) {
             }
         }
     })();
-
+    */
 
 
     // Later, after the Expo push notification service has delivered the

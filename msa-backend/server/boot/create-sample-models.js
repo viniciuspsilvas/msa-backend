@@ -45,7 +45,7 @@ module.exports = function (app) {
           lastname: 'Silva',
           firtsname: 'Vinicius',
           username: 'viniciuspsilvas',
-          password: 'Password!123',
+          password: 'Password123!',
           fullname: 'Vinicius Pereira Silva',
           phone: '0451472462'
         },
@@ -57,14 +57,14 @@ module.exports = function (app) {
           firtsname: 'Glauco',
           lastname: 'Pereira',
           username: 'glaucomp',
-          password: 'Password!123',
+          password: 'Password123!',
           phone: '0451472462'
         }, {
           email: 'lifemagalhaes@gmail.com',
           lastname: 'Marganelli',
           firtsname: 'Guilherme',
           username: 'lifemagalhaes',
-          password: 'Password!123',
+          password: 'Password123!',
           fullname: 'Guilherme Magalhaes Marganelli',
           phone: '0451472462'
         }, {
@@ -72,7 +72,7 @@ module.exports = function (app) {
           lastname: 'Barbeta',
           firtsname: 'Gustavo',
           username: 'gustavobarbeta',
-          password: 'Password!123',
+          password: 'Password123!',
           fullname: 'Gustavo Aguiar Barbeta',
           phone: '0451472462'
         }, {
@@ -80,7 +80,7 @@ module.exports = function (app) {
           lastname: 'Miyashiro',
           firtsname: 'Isabela',
           username: 'isa.miyashiro',
-          password: 'Password!123',
+          password: 'Password123!',
           fullname: 'Isabela Carvalho Miyashiro',
           phone: '0451472462'
         }
@@ -90,7 +90,7 @@ module.exports = function (app) {
           firtsname: 'Blair',
           lastname: 'Roberts',
           username: 'blair.roberts',
-          password: 'Password!123',
+          password: 'Password123!',
           phone: '0451472462'
         }, {
           email: 'brunobressanspaulonci@gmail.com',
@@ -98,7 +98,7 @@ module.exports = function (app) {
           firtsname: 'Bruno',
           lastname: 'Spaulonci',
           username: 'brunobressanspaulonci',
-          password: 'Password!123',
+          password: 'Password123!',
           phone: '0451472462'
         }, {
           email: 'camilaztt@hotmail.com',
@@ -106,7 +106,7 @@ module.exports = function (app) {
           firtsname: 'Camila',
           lastname: 'Oliviera',
           username: 'camilaztt',
-          password: 'Password!123',
+          password: 'Password123!',
           phone: '0451472462'
         }, {
           email: 'Ca_depaula@hotmail.com',
@@ -114,7 +114,7 @@ module.exports = function (app) {
           firtsname: 'Camila',
           lastname: 'PAULA',
           username: 'Ca_depaula',
-          password: 'Password!123',
+          password: 'Password123!',
           phone: '0451472462'
         }, {
           email: 'Capc77@gmail.com',
@@ -122,7 +122,7 @@ module.exports = function (app) {
           firtsname: 'Camila',
           lastname: 'PAULA',
           username: 'Capc77',
-          password: 'Password!123',
+          password: 'Password123!',
           phone: '0451472462'
         } */
 
