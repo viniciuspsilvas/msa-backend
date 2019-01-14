@@ -79,6 +79,7 @@ function sendNotification(token, fullname) {
     }
 
     let receiptIdChunks = expo.chunkPushNotificationReceiptIds(receiptIds);
+    /*
     (async () => {
         // Like sending notifications, there are different strategies you could use
         // to retrieve batches of receipts from the Expo service.
@@ -107,7 +108,7 @@ function sendNotification(token, fullname) {
             }
         }
     })();
-
+*/
 }
 
 module.exports = {
