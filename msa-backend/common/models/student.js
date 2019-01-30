@@ -35,9 +35,9 @@ module.exports = function (Student) {
       
 
     // This method to the login on Moodle Server by API
-    Student.loginMoodle = function (credencial, cb) {
+    Student.loginMoodle = function (userDetails, cb) {
 
-        var { login, password, tokenAdvice, adviceDesc } = credencial;
+        var { login, password, tokenAdvice, adviceDesc } = userDetails;
         var passwordHash = require('password-hash');
         
         let app = require('../../server/server');

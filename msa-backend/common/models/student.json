@@ -61,7 +61,7 @@
     "loginMoodle": {
       "accepts": [
         {
-          "arg": "credencial",
+          "arg": "userDetails",
           "type": "object"
         }
       ],
