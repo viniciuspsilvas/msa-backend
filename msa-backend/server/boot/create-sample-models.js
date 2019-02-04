@@ -49,9 +49,7 @@ module.exports = function (app) {
           fullname: 'Vinicius Pereira Silva',
           phone: '0451472462'
         },
-        
-        
-          /* {
+         {
           email: 'glaucomp@hotmail.com',
           fullname: 'Glauco Martins Pereira',
           firtsname: 'Glauco',
@@ -124,7 +122,7 @@ module.exports = function (app) {
           username: 'Capc77',
           password: 'Password123!',
           phone: '0451472462'
-        } */
+        } 
 
       ], cb);
     });
