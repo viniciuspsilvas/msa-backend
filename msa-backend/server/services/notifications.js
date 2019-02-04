@@ -1,4 +1,4 @@
-const { Expo } = require('expo-server-sdk');
+const { Expo } = require('expo-server-sdk')
 
 function sendNotification(token, fullname) {
 
@@ -23,6 +23,7 @@ function sendNotification(token, fullname) {
         console.error(`Push token ${pushToken} is not a valid Expo push token`);
 
     }
+    
 
     // The Expo push notification service accepts batches of notifications so
     // that you don't need to send 1000 requests to send 1000 notifications. We
@@ -31,8 +32,7 @@ function sendNotification(token, fullname) {
     // compressed).
     let chunks = expo.chunkPushNotifications(messages);
     let tickets = [];
-
-    /*
+    
     (async () => {
         // Send the chunks to the Expo push notification service. There are
         // different strategies you could use. A simple one is to send one chunk at a
@@ -51,7 +51,7 @@ function sendNotification(token, fullname) {
             }
         }
     })();
-    */
+    
 
 
     // Later, after the Expo push notification service has delivered the
@@ -79,7 +79,7 @@ function sendNotification(token, fullname) {
     }
 
     let receiptIdChunks = expo.chunkPushNotificationReceiptIds(receiptIds);
-    /*
+    
     (async () => {
         // Like sending notifications, there are different strategies you could use
         // to retrieve batches of receipts from the Expo service.
@@ -108,7 +108,7 @@ function sendNotification(token, fullname) {
             }
         }
     })();
-*/
+
 }
 
 module.exports = {
