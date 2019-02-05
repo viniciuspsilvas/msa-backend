@@ -20,17 +20,15 @@ module.exports = function (Message) {
         // Find the advices of the user
         StudentAdvice.findOne({ where: { "studentId": userId } }, function (err, studentAdvice) {
             notif.sendNotification(studentAdvice.token);
-
         });
 
         next();
     });
 
-
-    Message.sendMessageBatch = function(data, cb) {
+    Message.sendMessageBatch = function (data, cb) {
         var StudentAdvice = app.models.StudentAdvice;
 
-        data.receivers.forEach(function(student,index) { 
+        data.receivers.forEach(function (student, index) {
             let message = {
                 "title": data.title,
                 "body": data.body,
@@ -40,21 +38,19 @@ module.exports = function (Message) {
 
             Message.create(message)
 
-
             // Find the advices of the user
-            StudentAdvice.findOne({ where: { "studentId": student.id } }, function (err, studentAdvice) {
-                notif.sendNotification(studentAdvice.token, student.fullname);
-    
+            StudentAdvice.find({ where: { "studentId": student.id } }, function (err, advices) {
+                // notif.sendNotification(studentAdvice.token, student.fullname);
+                advices.forEach(adv => notif.sendNotification(adv.token, student.fullname));
             });
-         })
-
+        })
 
         cb(null, 'Greetings... ' + data);
-      }
-  
-      Message.remoteMethod('sendMessageBatch', {
-            accepts: {arg: 'data', type: 'object'},
-            returns: {arg: 'greeting', type: 'string'}
-      });
+    }
+
+    Message.remoteMethod('sendMessageBatch', {
+        accepts: { arg: 'data', type: 'object' },
+        returns: { arg: 'greeting', type: 'string' }
+    });
 
 };
