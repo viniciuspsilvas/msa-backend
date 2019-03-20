@@ -27,8 +27,8 @@
     "strong-error-handler": "^3.0.0"
   },
   "devDependencies": {
-    "eslint": "^3.17.1",
-    "eslint-config-loopback": "^8.0.0",
+    "eslint": "^5.15.2",
+    "eslint-config-loopback": "^13.0.0",
     "nodemon": "^1.18.5"
   },
   "repository": {
