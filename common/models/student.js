@@ -102,4 +102,21 @@ module.exports = function (Student) {
                 }
             }).catch(err => cb(err, login))
     }
+
+
+    /*
+    // getAttendance API - '/api/Students/getAttendance'
+    */
+    Student.getAttendance = function(studentId, cb) {
+
+      console.log("### Student.getAttendance - studentId = " + studentId)
+      
+      // Get the attendance from Moodle
+      cb(null, 0.89); // RETURN
+    }
+
+
+    /*
+    // FIM - getAttendance API - '/api/Students/getAttendance'
+    */
 };

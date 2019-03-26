@@ -47,6 +47,13 @@
       "principalType": "ROLE",
       "principalId": "$everyone",
       "permission": "ALLOW",
+      "property": "getAttendance"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
       "property": "find"
     },
     {
@@ -72,6 +79,22 @@
       "description": "This method do login by Moodle",
       "http": {
         "verb": "post"
+      }
+    },
+    "getAttendance": {
+      "accepts": [
+        {
+          "arg": "studentId",
+          "type": "number"
+        }
+      ],
+      "returns": {
+        "arg": "return",
+        "type": "number"
+      },
+      "description": "This method return the Attendance of the student",
+      "http": {
+        "verb": "get"
       }
     }
   }
