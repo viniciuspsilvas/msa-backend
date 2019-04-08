@@ -1,2 +1,4 @@
 msa-backend/server/config.local.json
 msa-backend/server/datasources.local.json
+node_modules
+.gitignore

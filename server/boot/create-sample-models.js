@@ -6,9 +6,8 @@ module.exports = function (app) {
 
   //create all models
   async.parallel({
-    users: async.apply(createUsers),
+    users: async.apply(createStudents),
     userGroups: async.apply(createUserGroups),
-
 
   }, function (err, results) {
     if (err) throw err;
@@ -33,8 +32,9 @@ module.exports = function (app) {
           });  */
 
   });
-
-  function createUsers(cb) {
+  
+  
+  function createStudents(cb) {
     app.dataSources.pg.automigrate('Student', function (err) {
       if (err) throw err;
 
