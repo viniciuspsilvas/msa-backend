@@ -98,7 +98,11 @@ module.exports = function (Student) {
                         });
 
                 } else {
-                    throw loginReturn.error;
+
+                  var error = new Error("New password and confirmation do not match");
+                  error.status = 400;
+                  return cb(error);
+                    
                 }
             }).catch(err => cb(err, login))
     }
