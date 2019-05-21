@@ -4,12 +4,12 @@
     "connector": "memory"
   },
   "pg": {
-    "host": "localhost",
-    "database": "mindroom-student-app",
-    "password": "postgres",
+    "host": "phpstack-209922-714883.cloudwaysapps.com",
+    "database": "rxvmgymkag",
+    "password": "YMYqh8YY6g",
     "name": "pg",
-    "username": "postgres",
-    "connector": "postgresql",
-    "port": 5432
+    "username": "rxvmgymkag",
+    "connector": "mysql",
+    "port": 3306
   }
 }
