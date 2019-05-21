@@ -24,6 +24,7 @@
     "loopback-connector-postgresql": "^3.4.0",
     "password-hash": "^1.2.2",
     "serve-favicon": "^2.0.1",
+    "socket.io": "^2.2.0",
     "strong-error-handler": "^3.0.0"
   },
   "devDependencies": {

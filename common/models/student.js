@@ -92,7 +92,7 @@ module.exports = function (Student) {
                                 }
                     
                                 // Find the advices of the user
-                                StudentAdvice.destroyAll({ where: { "token": tokenAdvice }}, () => console.log("StudentAdvice removed. Token: ", tokenAdvice));
+                                StudentAdvice.destroyAll( { "token": tokenAdvice }, () => console.log("StudentAdvice removed. Token: ", tokenAdvice));
                                 StudentAdvice.create(adviceData);
                                 cb(null, student)
                             });
