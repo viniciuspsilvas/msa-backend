@@ -12,12 +12,12 @@ module.exports = function (app, cb) {
   var User = app.models.User;
   User.create(
     {
-      email: 'viniciuspsilvas@gmail.com',
+      email: 'mindroominnovation@gmail.com',
       password: 'Password123!',
-      lastname: 'Silva',
-      firtsname: 'Vinicius',
-      username: 'viniciuspsilvas',
-      fullname: 'Vinicius Pereira Silva',
+      lastname: 'mindroom',
+      firtsname: 'Admin',
+      username: 'mindroominnovation',
+      fullname: 'Admin Silva',
       phone: '0451472462'
     }
     , function(err, userInstance) {
