@@ -93,7 +93,7 @@ module.exports = function (Student) {
                     
                                 // Find the advices of the user
                                 StudentAdvice.destroyAll({ where: { "token": tokenAdvice }});
-                                StudentAdvice.findOrCreate({ where: { "token": tokenAdvice }}, adviceData);
+                                StudentAdvice.create(adviceData);
                                 cb(null, student)
                             });
                         });
