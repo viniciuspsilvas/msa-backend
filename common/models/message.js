@@ -26,24 +26,32 @@ module.exports = function (Message) {
     });
 
     Message.sendMessageBatch = function (data, cb) {
+        const { title, body, severity, receivers, datetime } = data;
         var StudentAdvice = app.models.StudentAdvice;
 
-        data.receivers.forEach(function (student, index) {
-            let message = {
-                "title": data.title,
-                "body": data.body,
-                "severity": data.severity,
-                "studentId": student.id
-            }
+        if (receivers && receivers.length > 0) {
+            receivers.forEach(function (student, index) {
+                let message = {
+                    "title": title,
+                    "body": body,
+                    "severity": severity,
+                    "studentId": student.id,
+                    "scheduledFor": datetime
+                }
+              
+                // There is no datetime means the notification should be send now
+                if (!datetime) {
+                    // Find the advices of the user
+                    StudentAdvice.find({ where: { "studentId": student.id } }, function (err, advices) {
+                        advices.forEach(adv => notif.sendNotification(adv.token, student.fullname));
+                    });
 
-            Message.create(message)
+                    message.sentAt = Date.now();
+                }
 
-            // Find the advices of the user
-            StudentAdvice.find({ where: { "studentId": student.id } }, function (err, advices) {
-                // notif.sendNotification(studentAdvice.token, student.fullname);
-                advices.forEach(adv => notif.sendNotification(adv.token, student.fullname));
-            });
-        })
+                Message.create(message)
+            })
+        }
 
         cb(null, 'Greetings... ' + data);
     }

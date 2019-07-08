@@ -182,14 +182,19 @@ module.exports = function (app) {
     app.dataSources.pg.automigrate('StudentAdvice', function (err) {
       if (err) throw err;
 
-      app.models.StudentAdvice.create([], cb);
-/* 
+      app.models.StudentAdvice.create([{
+        description: 'Android SDK built for x86',
+        token: 'ExponentPushToken[0K3RRhG1fVHGqBdlWfXSyN]',
+        studentId: user.id,
+
+      }], cb); 
+
       app.models.StudentAdvice.create([{
         description: 'Samsung Galaxy S9+',
         token: 'ExponentPushToken[yApQ4KPHAZjJLD1UYzEv7u]',
-        studentId: user.id,
+        studentId: 2,
 
-      }], cb); */
+      }], cb); 
     });
   };
 

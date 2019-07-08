@@ -22,6 +22,9 @@
     "sentAt": {
       "type": "date"
     },
+    "scheduledFor": {
+      "type": "date"
+    },
     "isRead": {
       "type": "boolean",
       "default": false
