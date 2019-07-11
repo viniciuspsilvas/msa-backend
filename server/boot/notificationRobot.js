@@ -10,8 +10,6 @@ module.exports = function (app) {
   });
 
   const checkNotifications = () => {
-    console.log("Verificando notificacoes.")
-
     // Find all Message
     const Message = app.models.Message
 
@@ -27,8 +25,6 @@ module.exports = function (app) {
             dataAtual >= new Date(message.scheduledFor))
 
         if (isSend) {
-          console.log("### message send", message)
-
           StudentAdvice.find({ where: { "studentId": message.studentId } }, function (err, advices) {
             advices.forEach(adv => notif.sendNotification(adv.token, message.user.fullname));
           });
