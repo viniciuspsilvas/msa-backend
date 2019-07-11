@@ -61,10 +61,12 @@ module.exports = function (app) {
   console.log("TASK SCHEDULER is running.")
 
   var schedule = require('node-schedule');
+  
 
-  var j = schedule.scheduleJob('*/10 * * * * *', function () {
-    getListTasks(app);
-  });
+  // COMENTADO POIS NAO SERA IMPLEMENTADO TANKS NESSE MOMENTO
+//  var j = schedule.scheduleJob('*/10 * * * * *', function () {
+//    getListTasks(app);
+//  });
 
   console.log("TASK SCHEDULER stopped.")
 };
