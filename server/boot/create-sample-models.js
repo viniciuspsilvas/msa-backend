@@ -49,7 +49,7 @@ module.exports = function (app) {
           fullname: 'Vinicius Pereira Silva',
           phone: '0451472462'
         },
-         {
+      /*    {
           email: 'glaucomp@hotmail.com',
           fullname: 'Glauco Martins Pereira',
           firtsname: 'Glauco',
@@ -57,7 +57,7 @@ module.exports = function (app) {
           username: 'glaucomp',
           password: 'Password123!',
           phone: '0451472462'
-        }, {
+        },  */{
           email: 'lifemagalhaes@gmail.com',
           lastname: 'Marganelli',
           firtsname: 'Guilherme',
