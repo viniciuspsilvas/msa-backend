@@ -19,9 +19,9 @@ module.exports = function (app) {
       console.log('> Roles created sucessfully');
     });
 
-    createUserAdvices(results.users[0], function (err) {
+    /* createUserAdvices(results.users[0], function (err) {
       console.log('> StudentAdvices created sucessfully');
-    });
+    }); */
 
     createEnrollment(results.users[0], results.userGroups[0], function (err) {
       console.log('> Enrollment created sucessfully');
@@ -184,14 +184,14 @@ module.exports = function (app) {
 
       app.models.StudentAdvice.create([{
         description: 'Android SDK built for x86',
-        token: 'ExponentPushToken[0K3RRhG1fVHGqBdlWfXSyN]',
+        token: 'ExponentPushToken[yApQ4KPHAZjJLD1UYzEv7u]',
         studentId: user.id,
-
+        
       }], cb); 
-
+      
       app.models.StudentAdvice.create([{
         description: 'Samsung Galaxy S9+',
-        token: 'ExponentPushToken[yApQ4KPHAZjJLD1UYzEv7u]',
+        token: 'ExponentPushToken[0K3RRhG1fVHGqBdlWfXSyN]',
         studentId: 2,
 
       }], cb); 
