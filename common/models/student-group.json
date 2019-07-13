@@ -21,9 +21,9 @@
   },
   "validations": [],
   "relations": {
-    "enrollments": {
+    "students": {
       "type": "hasMany",
-      "model": "StudentGroup",
+      "model": "Student",
       "foreignKey": "studentGroupId",
       "through": "Enrollment"
     }

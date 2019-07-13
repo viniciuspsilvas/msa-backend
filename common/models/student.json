@@ -1,12 +1,15 @@
 {
   "name": "Student",
   "plural": "Students",
-  "base": "User",
+  "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true
   },
   "properties": {
+    "email": {
+      "type": "string"
+    },
     "firstname": {
       "type": "string"
     },
@@ -22,10 +25,13 @@
   },
   "validations": [],
   "relations": {
-    "enrollments": {
+    "studentGroups": {
       "type": "hasMany",
       "model": "StudentGroup",
-      "foreignKey": "studentId",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      },
       "through": "Enrollment"
     },
     "advices": {
@@ -62,27 +68,6 @@
       "principalId": "$everyone",
       "permission": "ALLOW",
       "property": "findById"
-    },
-    {
-      "accessType": "EXECUTE",
-      "principalType": "ROLE",
-      "principalId": "$everyone",
-      "permission": "ALLOW",
-      "property": "updateAttributes"
-    },
-    {
-      "accessType": "EXECUTE",
-      "principalType": "ROLE",
-      "principalId": "$everyone",
-      "permission": "ALLOW",
-      "property": "updateAttribute"
-    },
-    {
-      "accessType": "EXECUTE",
-      "principalType": "ROLE",
-      "principalId": "$everyone",
-      "permission": "ALLOW",
-      "property": "update"
     }
   ],
   "methods": {

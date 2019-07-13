@@ -11,15 +11,15 @@
       "type": "date",
       "required": true
     }
-  },
+  }, 
   "validations": [],
   "relations": {
-    "physician": {
+    "studentGroup": {
       "type": "belongsTo",
       "model": "StudentGroup",
       "foreignKey": "studentGroupId"
     },
-    "patient": {
+    "student": {
       "type": "belongsTo",
       "model": "Student",
       "foreignKey": "studentId"

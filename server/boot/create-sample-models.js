@@ -21,25 +21,25 @@ module.exports = function (app) {
 
     /* createUserAdvices(results.users[0], function (err) {
       console.log('> StudentAdvices created sucessfully');
-    }); */
-
+    }); *//* 
+   
     createEnrollment(results.users[0], results.userGroups[0], function (err) {
       console.log('> Enrollment created sucessfully');
     });
-
-    /*       createEnrollment(results.users[0], results.userGroups[1], function(err) {
-            console.log('> Enrollment2 created sucessfully');
-          });  */
+    */
+    createEnrollment(results.users[0], results.userGroups[0], function (err) {
+      console.log('> Enrollment2 created sucessfully >>', results.users[0], results.userGroups[0]);
+    });
 
   });
-  
-  
+
+
   function createStudents(cb) {
     app.dataSources.pg.automigrate('Student', function (err) {
       if (err) throw err;
 
       app.models.Student.create([
-      
+
         {
           email: 'viniciuspsilvas@gmail.com',
           lastname: 'Silva',
@@ -122,7 +122,7 @@ module.exports = function (app) {
           username: 'Capc77',
           password: 'Password123!',
           phone: '0451472462'
-        } 
+        }
 
       ], cb);
     });
@@ -158,19 +158,19 @@ module.exports = function (app) {
       if (err) throw err;
 
 
-  /*     const msgs = [{
-        title: 'Title Message 1',
-        body: 'Body 1 description Body description Body description description',
-        studentId: user.id,
-      }, {
-        title: 'Title Message 2',
-        body: 'Body 2 description Body description Body description description',
-        studentId: user.id,
-      }, {
-        title: 'Title Message 3',
-        body: 'Body 3 description Body description Body description description',
-        studentId: user.id,
-      }] */
+      /*     const msgs = [{
+            title: 'Title Message 1',
+            body: 'Body 1 description Body description Body description description',
+            studentId: user.id,
+          }, {
+            title: 'Title Message 2',
+            body: 'Body 2 description Body description Body description description',
+            studentId: user.id,
+          }, {
+            title: 'Title Message 3',
+            body: 'Body 3 description Body description Body description description',
+            studentId: user.id,
+          }] */
 
       const msgs = [];
 
@@ -186,15 +186,15 @@ module.exports = function (app) {
         description: 'Android SDK built for x86',
         token: 'ExponentPushToken[yApQ4KPHAZjJLD1UYzEv7u]',
         studentId: user.id,
-        
-      }], cb); 
-      
+
+      }], cb);
+
       app.models.StudentAdvice.create([{
         description: 'Samsung Galaxy S9+',
         token: 'ExponentPushToken[0K3RRhG1fVHGqBdlWfXSyN]',
         studentId: 2,
 
-      }], cb); 
+      }], cb);
     });
   };
 
@@ -231,8 +231,8 @@ module.exports = function (app) {
 
       app.models.Enrollment.create([{
 
-        userId: user.id,
-        userGroupId: userGroup.id,
+        student: user,
+        studentGroup: userGroup,
         date: Date.now()
 
       }], cb);
