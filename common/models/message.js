@@ -34,7 +34,6 @@ module.exports = function (Message) {
                 let message = {
                     "title": title,
                     "body": body,
-                    "severity": severity,
                     "studentId": student.id,
                     "scheduledFor": datetime
                 }

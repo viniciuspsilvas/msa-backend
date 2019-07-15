@@ -15,7 +15,7 @@ module.exports = function (app) {
 
     var StudentAdvice = app.models.StudentAdvice;
 
-    Message.find({ include: 'user' }).then((listMessages) => {
+    Message.find({ include: 'student' }).then((listMessages) => {
       // Loop for each Message
       listMessages.forEach((message) => {
         const dataAtual = Date.now();
@@ -26,7 +26,7 @@ module.exports = function (app) {
 
         if (isSend) {
           StudentAdvice.find({ where: { "studentId": message.studentId } }, function (err, advices) {
-            advices.forEach(adv => notif.sendNotification(adv.token, message.user.fullname));
+            advices.forEach(adv => notif.sendNotification(adv.token, message.student.fullname));
           });
 
           message.updateAttribute("sentAt", dataAtual)
