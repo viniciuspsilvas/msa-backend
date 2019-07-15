@@ -90,10 +90,13 @@ module.exports = function (Student) {
                   token: tokenAdvice,
                   studentId: student.id
                 }
+                StudentAdvice.destroyAll({ "token": tokenAdvice }, () => {
+                  console.log("StudentAdvice removed. Token: ", tokenAdvice)
+                  StudentAdvice.create(adviceData, () => console.log("StudentAdvice criado. Token: ", tokenAdvice, "Student:" + student.id))
+                }
+                );
 
                 // Find the advices of the user
-                StudentAdvice.destroyAll({ "token": tokenAdvice }, () => console.log("StudentAdvice removed. Token: ", tokenAdvice));
-                StudentAdvice.create(adviceData,  () => console.log("StudentAdvice criado. Token: ", tokenAdvice, "Student:"  + student.id));
                 cb(null, student)
               });
 
