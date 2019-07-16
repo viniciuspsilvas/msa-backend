@@ -19,7 +19,7 @@ module.exports = function (Message) {
 
         // Find the advices of the user
         StudentAdvice.findOne({ where: { "studentId": userId } }, function (err, studentAdvice) {
-            notif.sendNotification(studentAdvice.token);
+            notif.sendNotification(studentAdvice.token, title);
         });
 
         next();
@@ -42,7 +42,7 @@ module.exports = function (Message) {
                 if (!datetime) {
                     // Find the advices of the user
                     StudentAdvice.find({ where: { "studentId": student.id } }, function (err, advices) {
-                        advices.forEach(adv => notif.sendNotification(adv.token, student.fullname));
+                        advices.forEach(adv => notif.sendNotification(adv.token, title));
                     });
 
                     message.sentAt = Date.now();
