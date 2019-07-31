@@ -9,7 +9,7 @@ ds.automigrate(lbTables, function (er) {
 });
 
 var pg = server.dataSources.pg;
-var pgTables = ['StudentGroup', 'Student', 'Enrollment', 'StudentAdvice', 'Message'];
+var pgTables = ['StudentGroup', /* 'Student', */ 'Enrollment', 'StudentAdvice', 'Message'];
 
 pg.automigrate(pgTables, function (er2) {
     if (er2) throw er2;
