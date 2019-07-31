@@ -11,7 +11,7 @@
       "type": "date",
       "required": true
     }
-  }, 
+  },
   "validations": [],
   "relations": {
     "studentGroup": {
@@ -26,5 +26,33 @@
     }
   },
   "acls": [],
-  "methods": {}
+  "methods": {
+    "deleteEnrollment": {
+      "accepts": [
+        {
+          "arg": "idStudent",
+          "type": "number",
+          "required": true,
+          "description": ""
+        },
+        {
+          "arg": "idGroup",
+          "type": "number",
+          "required": true,
+          "description": ""
+        }
+      ],
+      "returns": [
+        {
+          "arg": "result",
+          "type": "string",
+          "description": ""
+        }
+      ],
+      "description": "This method is resposable to remove the relationship between Student and StudentGroup",
+      "http": {
+        "verb": "del"
+      }
+    }
+  }
 }
