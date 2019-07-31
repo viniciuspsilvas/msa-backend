@@ -1,32 +1,18 @@
 'use strict';
 
-var notif = require('../../server/services/notifications')
+const app = require('../../server/server');
+const notif = require('../../server/services/notifications')
 
+const PUSHER_APP_ID = 829464;
+const PUSHER_APP_KEY = "2d68feae7baa98ec16b8";
+const PUSHER_APP_SECRET = "577d33a2ae3e46f450f0"
+const CLUSTER = "ap1"
+const MSA_MESSAGE_CHANNEL = "MSA-MESSAGE-CHANNEL"
+ 
 module.exports = function (Message) {
 
-    var app = require('../../server/server');
-
-    Message.beforeRemote('create', function (ctx, _modelInstance_, next) {
-        ctx.createdAt = Date.now
-        next();
-    });
-
-    // remote method after hook
-    Message.afterRemote('create', function (context, remoteMethodOutput, next) {
-        let userId = context.result.userId;
-
-        var StudentAdvice = app.models.StudentAdvice;
-
-        // Find the advices of the user
-        StudentAdvice.findOne({ where: { "studentId": userId } }, function (err, studentAdvice) {
-            notif.sendNotification(studentAdvice.token, title);
-        });
-
-        next();
-    });
-
     Message.sendMessageBatch = function (data, cb) {
-        const { title, body, severity, receivers, datetime } = data;
+        const { title, body, receivers, datetime } = data;
         var StudentAdvice = app.models.StudentAdvice;
 
         if (receivers && receivers.length > 0) {
@@ -35,9 +21,10 @@ module.exports = function (Message) {
                     "title": title,
                     "body": body,
                     "studentId": student.id,
-                    "scheduledFor": datetime
+                    "scheduledFor": datetime,
+                    "createdAt": Date.now
                 }
-              
+
                 // There is no datetime means the notification should be send now
                 if (!datetime) {
                     // Find the advices of the user
@@ -49,6 +36,19 @@ module.exports = function (Message) {
                 }
 
                 Message.create(message)
+
+                var Pusher = require('pusher');
+                var channels_client = new Pusher({
+                    appId: PUSHER_APP_ID,
+                    key: PUSHER_APP_KEY,
+                    secret: PUSHER_APP_SECRET,
+                    cluster: CLUSTER,
+                    encrypted: true
+                });
+
+                channels_client.trigger(MSA_MESSAGE_CHANNEL, `msa.message.student.${student.id}`, {
+                    "message": "New message to student=" + student.id
+                });
             })
         }
 
