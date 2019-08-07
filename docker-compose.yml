@@ -11,6 +11,7 @@ services:
       MYSQL_PASSWORD: 'msa-pass'
       # Password for root access
       MYSQL_ROOT_PASSWORD: 'msa-pass'
+      TZ: "Australia/Brisbane"
     ports:
       # <Port exposed> : < MySQL Port running inside container>
       - '3306:3306'
