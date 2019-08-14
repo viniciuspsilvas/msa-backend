@@ -4,12 +4,13 @@
     "connector": "memory"
   },
   "pg": {
-    "host": "phpstack-209922-714883.cloudwaysapps.com",
-    "database": "rxvmgymkag",
-    "password": "YMYqh8YY6g",
+    "host": "cluster0-g4zvp.mongodb.net",
+    "port": 27017,
+    "url":  "mongodb+srv://msa-user:99O7aWEHwVaw89IQ@cluster0-g4zvp.mongodb.net/msa-db?retryWrites=true&w=majority",
+    "database": "msa-db",
+    "password": "99O7aWEHwVaw89IQ",
     "name": "pg",
-    "username": "rxvmgymkag",
-    "connector": "mysql",
-    "port": 3306
+    "user": "msa-user", 
+    "connector": "mongodb"
   }
 }
