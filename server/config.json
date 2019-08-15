@@ -1,3 +1,4 @@
+    
 {
   "restApiRoot": "/api",
   "host": "0.0.0.0",
@@ -5,7 +6,6 @@
   "remoting": {
     "context": false,
     "rest": {
-      "handleErrors": false,
       "normalizeHttpPath": false,
       "xml": false
     },
@@ -17,8 +17,10 @@
       "extended": true,
       "limit": "100kb"
     },
-    "cors": false
+    "cors": false,
+    "handleErrors": false
   },
+  "legacyExplorer": false,
   "url-moodle": "moodle-85225-527125.cloudwaysapps.com",
   "token-moodle-WS": "d7e8da0655986a08692873a9f9739cd0",
   "login-service-moodle": "moodle_mobile_app"
