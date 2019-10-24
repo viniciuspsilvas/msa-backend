@@ -73,7 +73,8 @@ module.exports = function (app) {
           username: 'gustavobarbeta',
           password: 'Password123!',
           fullname: 'Gustavo Aguiar Barbeta',
-          phone: '0451472462'
+          phone: '0451472462',
+          isActive:false
         }, {
           email: 'isa.miyashiro@yahoo.com.br',
           lastname: 'Miyashiro',
@@ -98,7 +99,8 @@ module.exports = function (app) {
           lastname: 'Spaulonci',
           username: 'brunobressanspaulonci',
           password: 'Password123!',
-          phone: '0451472462'
+          phone: '0451472462',
+          isActive:false
         }, {
           email: 'camilaztt@hotmail.com',
           fullname: 'Camila Ziliotto De Oliviera',
