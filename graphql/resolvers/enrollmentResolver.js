@@ -20,6 +20,10 @@ const resolvers = {
     createEnrollment: async (root, args, context, info) => {
       const { student, course } = args.input;
 
+      if (await Enrollment.countDocuments({ student, course }) > 0) {
+        throw new Error('There is already an enrollment for this student in the course.');
+      }
+
       const student1 = await Student.findOne(student);
       const course1 = await Course.findOne(course);
 
@@ -35,13 +39,17 @@ const resolvers = {
     },
 
     deleteEnrollment: async (root, args, context, info) => {
-      const { id } = args;
+      const { _id } = args;
 
-      const enrollment = await Enrollment.findById(id).populate('student').populate('course');
+      const enrollment = await Enrollment.findById(_id).populate('student').populate('course');
 
-      await Course.updateOne({ _id: enrollment.course.id }, { $pull: { enrollments: enrollment.id } })
-      await Student.updateOne({ _id: enrollment.student.id }, { $pull: { enrollments: enrollment.id } })
-      return await Enrollment.findByIdAndDelete(id);
+      if (enrollment) {
+        await Course.updateOne({ _id: enrollment.course.id }, { $pull: { enrollments: enrollment.id } })
+        await Student.updateOne({ _id: enrollment.student.id }, { $pull: { enrollments: enrollment.id } })
+        return await Enrollment.findByIdAndDelete(_id);
+      } else {
+        throw new Error(`There is no enrollment with id='${_id}'`);
+      }
     },
   }
 };

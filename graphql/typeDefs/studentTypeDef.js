@@ -4,14 +4,13 @@ const { gql } = require('apollo-server-express');
 const typeDefs = gql`
   type Student {
     _id: ID,
-    name: String,
     email: String,
     firstname: String,
     lastname: String,
     fullname: String,
     phone: String,
     username: String,
-    password: String,
+    device: Device,
 
     enrollments: [Enrollment]
     advices: [Advice]
@@ -19,25 +18,36 @@ const typeDefs = gql`
 
   },
 
+  type LoginResponse {
+    token: String
+    student: Student
+  }
+
+  input LoginInput {
+    username: String!
+    password: String!
+    tokenDevice: String!
+    nameDevice: String!
+  }
+
   input StudentInput {
     _id: ID,
-    name: String,
     email: String,
     firstname: String,
     lastname: String,
-    fullname: String,
     phone: String,
     username: String,
-    password: String,
   },
 
   extend type Query {
-    students: [Student]
+    students: [Student],
+    studentByID(_id: ID!): Student
   },
   extend type Mutation {
     createStudent(input: StudentInput!): Student,
     deleteStudent(_id: ID!): Student
     updateStudentName(_id: ID!, name: String!): Student
+    loginStudent(loginInput: LoginInput!): LoginResponse!
   }
 `;
 

@@ -20,6 +20,8 @@ const DB_URI =
   process.env.MONGO_DB
   }?retryWrites=true&w=majority`;
 
+
+mongoose.set('useFindAndModify', false);
 mongoose.connect(DB_URI, { useUnifiedTopology: true, useNewUrlParser: true })
   .then(() => {
     app.listen(process.env.SERVER_PORT);
