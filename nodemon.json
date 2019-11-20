@@ -4,8 +4,8 @@
         "MONGO_PASSWORD" : "99O7aWEHwVaw89IQ",
         "MONGO_DB" : "msa-db",
 
-        "SERVER_URL": "localhost", 
-        "SERVER_PORT": "4000",
+        "SERVER_URL": "phpstack-209922-714883.cloudwaysapps.com", 
+        "SERVER_PORT": "3000",
 
         "URL_MOODLE": "moodle-85225-527125.cloudwaysapps.com",
         "TOKEN_MOODLE_WS": "d7e8da0655986a08692873a9f9739cd0",
