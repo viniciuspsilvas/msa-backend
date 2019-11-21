@@ -46,6 +46,11 @@ jobs:
               - "3d:b4:07:0e:b8:7e:33:3c:da:37:db:3e:56:22:b3:4d"
         - attach_workspace:
             at: ~/project
+        - restore_cache:
+            keys:
+              - v1-dependencies-{{ checksum "package.json" }}
+              # fallback to using the latest cache if no exact match is found
+              - v1-dependencies-
         - run:
             name: check files
             command: |
