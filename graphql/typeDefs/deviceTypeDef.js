@@ -2,24 +2,28 @@ const { gql } = require('apollo-server-express');
 
 // Construct a schema using GraphQL schema language
 const typeDefs = gql`
-  type Enrollment {
+  type Device {
     _id: ID,
+    description: String,
+    token: String,
+    isActive: Boolean,
     student: Student,
-    course: Course,
   },
 
   extend type Query {
-    enrollments: [Enrollment]
+    devices: [Device]
   },
   
   extend type Mutation {
-    createEnrollment(input: EnrollmentInput!): Enrollment,
-    deleteEnrollment(_id: ID!): Enrollment
+    createDevice(input: DeviceInput!): Device,
+    deleteDevice(id: String!): Device
   }
 
-  input EnrollmentInput {
+  input DeviceInput {
+    description: String! ,
+    token: String! ,
+    isActive: Boolean,
     student: StudentInput!
-    course: CourseInput!
   }
 `;
 

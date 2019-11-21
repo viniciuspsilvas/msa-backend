@@ -17,7 +17,7 @@ const resolvers = {
     createCourse: (root, args, context, info) => {
 
       const  user = args.input;
-      const newCourse = new User({ email: user.email, password: user.password });
+      const newCourse = new User({ email: user.email, password: user.password }); //TODO Acho que esta errado User = copy & paste
       return newCourse.save();
     },
 
