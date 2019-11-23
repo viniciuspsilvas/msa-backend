@@ -11,7 +11,7 @@ const channels_client = new Pusher({
   appId: process.env.PUSHER_APP_ID,
   key: process.env.PUSHER_APP_KEY,
   secret: process.env.PUSHER_APP_SECRET,
-  cluster: process.env.CLUSTER,
+  cluster: process.env.PUSHER_CLUSTER,
   encrypted: true
 });
 
@@ -69,7 +69,7 @@ const resolvers = {
 
           notif.sendNotification(student1.device.token, title);
 
-          channels_client.trigger(process.env.MSA_MESSAGE_CHANNEL, `msa.message.student.${student1._id}`, {
+          channels_client.trigger(process.env.PUSHER_MSA_MESSAGE_CHANNEL, `msa.message.student.${student1._id}`, {
             "message": "New message to student=" + student1._id
           });
         });
