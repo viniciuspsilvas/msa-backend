@@ -6,5 +6,6 @@ const enrollment = require("./enrollmentTypeDef");
 const advice = require("./adviceTypeDef");
 const device = require("./deviceTypeDef");
 const message = require("./messageTypeDef");
+const config = require("./configTypeDef");
 
-module.exports = [root, course, post, student, enrollment, advice, device, message];
+module.exports = [root, course, post, student, enrollment, advice, device, message, config];

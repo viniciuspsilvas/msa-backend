@@ -5,5 +5,6 @@ const enrollment = require("./enrollmentResolver");
 const advice = require("./adviceResolver");
 const device = require("./deviceResolver");
 const message = require("./messageResolver");
+const config = require("./configResolver");
 
-module.exports = [course, post, student, enrollment, advice, device, message];
+module.exports = [course, post, student, enrollment, advice, device, message, config];
