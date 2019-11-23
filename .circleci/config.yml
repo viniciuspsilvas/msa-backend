@@ -63,7 +63,7 @@ jobs:
         - run:
             name: Build over Remote Server 
             command: |
-                ssh -t $SSH_USER@$SSH_HOST 'pwd && cd $SSH_PATH && exec bash -l && pwd && ../run.sh stop && rm -f yarn.lock && npm i && ../run.sh start'
+                ssh -t $SSH_USER@$SSH_HOST 'rm -f $SSH_PATH/yarn.lock && npm i --prefix $SSH_PATH'
 
 workflows:
   version: 2
