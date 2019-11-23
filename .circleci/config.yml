@@ -22,7 +22,7 @@ jobs:
           name: "Setup custom environment variables"
           command: |
               echo '{"env" : {' > nodemon.json
-              echo '        "MONGO_USER" :  {$MONGO_USER},' >> nodemon.json
+              echo '        "MONGO_USER" :  "'$MONGO_USER'",' >> nodemon.json
               echo '        "MONGO_PASSWORD" : "{$MONGO_PASSWORD}",' >> nodemon.json
               echo '        "MONGO_DB" : "{$MONGO_DB}",' >> nodemon.json
               echo '        "SERVER_URL": "{$SERVER_URL}", ' >> nodemon.json
