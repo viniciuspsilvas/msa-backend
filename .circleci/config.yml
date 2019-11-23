@@ -23,24 +23,24 @@ jobs:
           paths:
             - .
 
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
+      # # Download and cache dependencies
+      # - restore_cache:
+      #     keys:
+      #       - v1-dependencies-{{ checksum "package.json" }}
+      #       # fallback to using the latest cache if no exact match is found
+      #       - v1-dependencies-
 
-      - run: yarn install
+      # - run: yarn install
      
-      - run:
-            name: check files
-            command: |
-              pwd && ls -al
+      # - run:
+      #       name: check files
+      #       command: |
+      #         pwd && ls -al
 
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
+      # - save_cache:
+      #     paths:
+      #       - node_modules
+      #     key: v1-dependencies-{{ checksum "package.json" }}
   deploy:
       machine:
         enabled: true
@@ -51,25 +51,25 @@ jobs:
         - attach_workspace:
             at: ~/msa-backend
             
-       # - run:
-       #     name: Removing old files 
-       #     command: |
-       #       ssh -t $SSH_USER@$SSH_HOST "rm -rf $SSH_PATH/msa-backend"
+        # - run:
+        #     name: Removing old files 
+        #     command: |
+        #       ssh -t $SSH_USER@$SSH_HOST "rm -rf $SSH_PATH/msa-backend"
 
-        #- run:
-        #    name: Deploy Over SSH 
-        #    command: |
-        #      scp -rCpv ~/msa-backend/ $SSH_USER@$SSH_HOST:$SSH_PATH/msa-backend/
+        # - run:
+        #     name: Deploy Over SSH 
+        #     command: |
+        #       scp -rCpv ~/msa-backend/ $SSH_USER@$SSH_HOST:$SSH_PATH/msa-backend/
 
-        #- run:
-        #    name: Build over Remote Server 
-        #    command: |
-        #        ssh -t $SSH_USER@$SSH_HOST "bash -c 'cd $SSH_PATH/msa-backend/ && rm -rf yarn.lock && npm i'"
+        # - run:
+        #     name: Build over Remote Server 
+        #     command: |
+        #         ssh -t $SSH_USER@$SSH_HOST "bash -c 'cd $SSH_PATH/msa-backend/ && rm -rf yarn.lock && npm i'"
 
         - run:
             name: Starting node 
             command: |
-              ssh -t $SSH_USER@$SSH_HOST "bash -c 'echo '$SSH_PATH' && cd $SSH_PATH && ./run.sh restart'"
+              ssh -t $SSH_USER@$SSH_HOST "bash -c 'echo '$SSH_PATH' && cd $SSH_PATH && ./run.sh start'"
 
 workflows:
   version: 2
