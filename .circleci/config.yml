@@ -58,7 +58,7 @@ jobs:
         - run:
             name: Stopping node 
             command: |
-              ssh -t $SSH_USER@$SSH_HOST "bash -c '$SSH_PATH/run.sh stop'"
+              ssh -t $SSH_USER@$SSH_HOST "bash -c 'pkill node'"
 
         - run:
             name: Deploy Over SSH 
