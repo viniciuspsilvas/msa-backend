@@ -7,3 +7,4 @@ server/config.json
 server/datasources.json
 server/datasources.local.json
 .vscode/launch.json
+nodemon.json
