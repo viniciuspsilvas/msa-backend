@@ -69,7 +69,7 @@ jobs:
         - run:
             name: Starting node 
             command: |
-              ssh -t $SSH_USER@$SSH_HOST "bash -c 'echo 'SSH_PATH' && $SSH_PATH/run.sh restart'"
+              ssh -t $SSH_USER@$SSH_HOST "bash -c 'echo '$SSH_PATH' && cd $SSH_PATH/msa-backend && npm start'"
 
 workflows:
   version: 2
