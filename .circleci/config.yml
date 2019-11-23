@@ -5,6 +5,7 @@
 version: 2
 jobs:
   build:
+    working_directory: ~/msa-backend
     docker:
       # specify the version you desire here
       - image: circleci/node:8.16.2
@@ -13,8 +14,6 @@ jobs:
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
       # - image: circleci/mongo:3.4.4
-
-    working_directory: ~/msa-backend
 
     steps:
       - checkout
@@ -44,10 +43,12 @@ jobs:
   deploy:
       machine:
         enabled: true
+      working_directory: ~/msa-backend
       steps:
         - add_ssh_keys:
             fingerprints:
-              - "3d:b4:07:0e:b8:7e:33:3c:da:37:db:3e:56:22:b3:4d"
+            - "3d:b4:07:0e:b8:7e:33:3c:da:37:db:3e:56:22:b3:4d"
+            - "0a:bf:14:0d:56:3b:9f:6f:de:4e:28:51:c4:02:72:01"
         - attach_workspace:
             at: ~/msa-backend
 
@@ -75,6 +76,11 @@ jobs:
             name: Starting node 
             command: |
               ssh -t $SSH_USER@$SSH_HOST "bash -i -c 'echo '$SSH_PATH' && cd $SSH_PATH && ./run.sh start'"
+
+        - run:
+            name: check files
+            command: |
+              pwd && ls -al
 
         - run:
             name: bump package version
