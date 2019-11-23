@@ -69,7 +69,9 @@ jobs:
         - run:
             name: Starting node 
             command: |
-              ssh -t $SSH_USER@$SSH_HOST "bash -c 'echo '$SSH_PATH' && cd $SSH_PATH && ./run.sh start'"
+              ssh -t $SSH_USER@$SSH_HOST "bash -i -c 'echo '$SSH_PATH' && cd $SSH_PATH && ./run.sh start'"
+
+            # ssh -t "server" 'bash -i -c "npm --version"'
 
 workflows:
   version: 2
