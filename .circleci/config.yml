@@ -52,16 +52,7 @@ jobs:
             at: ~/msa-backend
             
         - run:
-            name: check files
-            command: |
-              pwd && ls -al
-        - run:
-            name: Stopping node 
-            command: |
-              ssh -t $SSH_USER@$SSH_HOST "bash -c 'pkill node'"
-
-        - run:
-            name: Removing oud files 
+            name: Removing old files 
             command: |
               ssh -t $SSH_USER@$SSH_HOST "rm -rf $SSH_PATH/msa-backend"
 
@@ -78,7 +69,7 @@ jobs:
         - run:
             name: Starting node 
             command: |
-              ssh -t $SSH_USER@$SSH_HOST "bash -c 'echo 'SSH_PATH' && $SSH_PATH/run.sh start'"
+              ssh -t $SSH_USER@$SSH_HOST "bash -c 'echo 'SSH_PATH' && $SSH_PATH/run.sh restart'"
 
 workflows:
   version: 2
