@@ -23,20 +23,20 @@ jobs:
           command: |
               echo '{"env" : {' > nodemon.json
               echo '        "MONGO_USER" :  "'$MONGO_USER'",' >> nodemon.json
-              echo '        "MONGO_PASSWORD" : "{$MONGO_PASSWORD}",' >> nodemon.json
-              echo '        "MONGO_DB" : "{$MONGO_DB}",' >> nodemon.json
-              echo '        "SERVER_URL": "{$SERVER_URL}", ' >> nodemon.json
-              echo '        "SERVER_PORT": "{$SERVER_PORT}",' >> nodemon.json
-              echo '        "URL_MOODLE": "{$URL_MOODLE}",' >> nodemon.json
-              echo '        "TOKEN_MOODLE_WS": "{$TOKEN_MOODLE_WS}",' >> nodemon.json
-              echo '        "LOGIN_SERVICE_MOODLE": "{$LOGIN_SERVICE_MOODLE}",' >> nodemon.json
-              echo '        "SECRET_TOKEN": "{$SECRET_TOKEN}",' >> nodemon.json
-              echo '        "TOKEN_EXPIRES_IN" :"{$TOKEN_EXPIRES_IN}",' >> nodemon.json
-              echo '        "PUSHER_APP_ID" : "{$PUSHER_APP_ID}",' >> nodemon.json
-              echo '        "PUSHER_APP_KEY" : "{$PUSHER_APP_KEY}",' >> nodemon.json
-              echo '        "PUSHER_APP_SECRET" : "{$PUSHER_APP_SECRET}",' >> nodemon.json
-              echo '        "PUSHER_CLUSTER" : "{$PUSHER_CLUSTER}",' >> nodemon.json
-              echo '        "PUSHER_MSA_MESSAGE_CHANNEL" : "{$PUSHER_MSA_MESSAGE_CHANNEL}"' >> nodemon.json
+              echo '        "MONGO_PASSWORD" : "'$MONGO_PASSWORD'",' >> nodemon.json
+              echo '        "MONGO_DB" : "'$MONGO_DB'",' >> nodemon.json
+              echo '        "SERVER_URL": "'$SERVER_URL'", ' >> nodemon.json
+              echo '        "SERVER_PORT": "'$SERVER_PORT'",' >> nodemon.json
+              echo '        "URL_MOODLE": "'$URL_MOODLE'",' >> nodemon.json
+              echo '        "TOKEN_MOODLE_WS": "'$TOKEN_MOODLE_WS'",' >> nodemon.json
+              echo '        "LOGIN_SERVICE_MOODLE": "'$LOGIN_SERVICE_MOODLE'",' >> nodemon.json
+              echo '        "SECRET_TOKEN": "'$SECRET_TOKEN'",' >> nodemon.json
+              echo '        "TOKEN_EXPIRES_IN" :"'$TOKEN_EXPIRES_IN'",' >> nodemon.json
+              echo '        "PUSHER_APP_ID" : "'$PUSHER_APP_ID'",' >> nodemon.json
+              echo '        "PUSHER_APP_KEY" : "'$PUSHER_APP_KEY'",' >> nodemon.json
+              echo '        "PUSHER_APP_SECRET" : "'$PUSHER_APP_SECRET'",' >> nodemon.json
+              echo '        "PUSHER_CLUSTER" : "'$PUSHER_CLUSTER'",' >> nodemon.json
+              echo '        "PUSHER_MSA_MESSAGE_CHANNEL" : "'$PUSHER_MSA_MESSAGE_CHANNEL'"' >> nodemon.json
               echo '}}' >> nodemon.json
 
       - run:
