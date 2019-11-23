@@ -63,7 +63,7 @@ jobs:
         - run:
             name: Build over Remote Server 
             command: |
-                ssh -t $SSH_USER@$SSH_HOST "bash -c 'cd $SSH_PATH/msa-backend/ && pwd && ls -al && rm -rf yarn.lock && npm i'"
+                ssh -t $SSH_USER@$SSH_HOST "bash -c '$SSH_PATH/run.sh stop && cd $SSH_PATH/msa-backend/ && pwd && ls -al && rm -rf yarn.lock && npm i && $SSH_PATH/run.sh start'"
 
 workflows:
   version: 2
