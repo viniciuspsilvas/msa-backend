@@ -17,10 +17,7 @@ jobs:
 
     steps:
       - checkout
-      - persist_to_workspace:
-          root: ~/msa-backend
-          paths:
-            - .
+
       - run: 
           name: "Setup custom environment variables"
           command: |
@@ -41,6 +38,11 @@ jobs:
               echo '        "PUSHER_CLUSTER" : "$PUSHER_CLUSTER",' > nodemon.json
               echo '        "PUSHER_MSA_MESSAGE_CHANNEL" : "$PUSHER_MSA_MESSAGE_CHANNEL"' > nodemon.json
               echo '}}' > nodemon.json
+
+      - persist_to_workspace:
+          root: ~/msa-backend
+          paths:
+            - .
 
       # Download and cache dependencies
       - restore_cache:
