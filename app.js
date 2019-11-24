@@ -1,31 +1,47 @@
-var express = require('express');
 const mongoose = require('mongoose');
-const { ApolloServer } = require('apollo-server-express');
+const { ApolloServer, AuthenticationError } = require('apollo-server');
+const jwt = require('jsonwebtoken');
 
 const typeDefs = require('./graphql/typeDefs/');
 const resolvers = require('./graphql/resolvers/');
 
-// Create Apollo server
-const server = new ApolloServer({ typeDefs, resolvers });
-var app = express();
+const { SECRET_TOKEN, MONGO_USER, MONGO_PASSWORD, MONGO_DB, SERVER_URL, SERVER_PORT } = process.env;
 
-// Use Express app as middleware in Apollo Server instance
-server.applyMiddleware({ app });
+// Create Apollo server
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+
+  // TODO tratar excessoes como /Playground e /Login
+  /* context: ({ req }) => {
+
+    try {
+
+      token = jwt.verify(req.headers.authorization.replace('Bearer ', ''), SECRET_TOKEN);
+    } catch (e) {
+      throw new AuthenticationError("Not authorized");
+    }
+
+    // add the user to the context
+    return { token };
+  }, */
+});
 
 const DB_URI =
-  `mongodb+srv://${
-  process.env.MONGO_USER}:${
-  process.env.MONGO_PASSWORD
-  }@cluster0-g4zvp.mongodb.net/${
-  process.env.MONGO_DB
-  }?retryWrites=true&w=majority`;
-
+  `mongodb+srv://${MONGO_USER}:${MONGO_PASSWORD}@cluster0-g4zvp.mongodb.net/${MONGO_DB}?retryWrites=true&w=majority`;
 
 mongoose.set('useFindAndModify', false);
 mongoose.connect(DB_URI, { useUnifiedTopology: true, useNewUrlParser: true })
   .then(() => {
-    app.listen(process.env.SERVER_PORT);
-    console.log(`🚀 Running a GraphQL API server at ${process.env.SERVER_URL}:${process.env.SERVER_PORT}/graphql`);
+
+    server.listen({
+      host: SERVER_URL,
+      port: SERVER_PORT,
+      exclusive: true
+    }).then(({ url }) => {
+      console.log(`🚀 Running a GraphQL API server at ${url}graphql`);
+    });
+
   })
   .catch(err => {
     console.log(err)

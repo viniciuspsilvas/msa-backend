@@ -1,4 +1,8 @@
 const User = require('../models/user');
+const bcryptjs = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+
+const SALT_HASH = 4;
 
 // Provide resolver functions for the GraphQL schema
 const resolvers = {
@@ -7,24 +11,63 @@ const resolvers = {
    * and get all User documents.
    */
   Query: {
-    users: () => User.find({})
+    users: (parent, args, context) => {
+      // In this case, we'll pretend there is no data when
+      // we're not logged in. Another option would be to
+      // throw an error.
+      /*   if (!context.token) return null; */
+
+      return User.find({})
+    }
   },
   /**
    * A GraphQL Mutation that provides functionality for adding user to
    * the users list and return user after successfully adding to list
    */
   Mutation: {
-    createCourse: (root, args, context, info) => {
+    createUser: async (root, { userInput }, context, info) => {
 
-      const  user = args.input;
-      const newCourse = new User({ email: user.email, password: user.password }); //TODO Acho que esta errado User = copy & paste
-      return newCourse.save();
+      const { username, password } = userInput;
+      const isActive = true;
+      const isAdmin = false;
+
+      const user = await new User({ username, password: bcryptjs.hashSync(password, SALT_HASH), isActive, isAdmin }).save();
+      user.password = "";
+
+      return user;
     },
 
-    deleteCourse: async (parent, _id) => {
+    deleteUser: async (parent, _id) => {
       return await User.findByIdAndDelete(_id);
     },
-   
+
+    toggleActiveUser: async (root, { _id, isActive }, context, info) => {
+      return await User.findByIdAndUpdate(_id, { isActive }, { new: true });
+    },
+
+    toggleAdminUser: async (root, { _id, isAdmin }, context, info) => {
+      return await User.findByIdAndUpdate(_id, { isAdmin }, { new: true });
+    },
+
+    /*********************************/
+    /** loginUser implementation  */
+    /*********************************/
+    loginUser: async (parent, { loginUserInput }, ctx, info) => {
+
+      const { username, password } = loginUserInput;
+      const user = await User.findOne({ username });
+
+      if (!user) throw new Error('Unable to Login');
+      const isMatch = bcryptjs.compareSync(password, user.password);
+      if (!isMatch) throw new Error('Unable to Login');
+
+      const { SECRET_TOKEN, TOKEN_EXPIRES_IN } = process.env;
+      const token = jwt.sign({ user }, SECRET_TOKEN, { expiresIn: TOKEN_EXPIRES_IN })
+
+      user.password = "";
+      return { token, user }
+    }
+
   }
 };
 

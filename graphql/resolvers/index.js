@@ -6,5 +6,6 @@ const advice = require("./adviceResolver");
 const device = require("./deviceResolver");
 const message = require("./messageResolver");
 const config = require("./configResolver");
+const user = require("./userResolver");
 
-module.exports = [course, post, student, enrollment, advice, device, message, config];
+module.exports = [course, post, user, student, enrollment, advice, device, message, config];
