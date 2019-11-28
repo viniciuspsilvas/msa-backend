@@ -1,3 +1,5 @@
+const { requiresLogin } = include('server/security/authorizer');
+
 const course = require("./courseResolver");
 const post = require("./postResolver");
 const student = require("./studentResolver");
@@ -6,5 +8,10 @@ const advice = require("./adviceResolver");
 const device = require("./deviceResolver");
 const message = require("./messageResolver");
 const config = require("./configResolver");
+const user = require("./userResolver");
 
-module.exports = [course, post, student, enrollment, advice, device, message, config];
+
+const protectedModules = [student, enrollment, device, course]
+const modules = [user, post, advice, config, message];
+
+module.exports = modules.concat(protectedModules.map(m => requiresLogin(m)));
