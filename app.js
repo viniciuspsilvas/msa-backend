@@ -1,9 +1,18 @@
+global.base_dir = __dirname;
+global.abs_path = function(path) {
+  return base_dir + path;
+}
+global.include = function(file) {
+  return require(abs_path('/' + file));
+}
+
 const mongoose = require('mongoose');
 const { ApolloServer, AuthenticationError } = require('apollo-server');
 const jwt = require('jsonwebtoken');
 
 const typeDefs = require('./graphql/typeDefs/');
 const resolvers = require('./graphql/resolvers/');
+
 
 const { SECRET_TOKEN, MONGO_USER, MONGO_PASSWORD, MONGO_DB, SERVER_URL, SERVER_PORT } = process.env;
 
@@ -12,19 +21,17 @@ const server = new ApolloServer({
   typeDefs,
   resolvers,
 
-  // TODO tratar excessoes como /Playground e /Login
-  /* context: ({ req }) => {
+  context: ({ req }) => {
 
     try {
-
       token = jwt.verify(req.headers.authorization.replace('Bearer ', ''), SECRET_TOKEN);
     } catch (e) {
-      throw new AuthenticationError("Not authorized");
+      token = null;
     }
 
     // add the user to the context
     return { token };
-  }, */
+  },
 });
 
 const DB_URI =

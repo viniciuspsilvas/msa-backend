@@ -28,6 +28,7 @@ const typeDefs = gql`
 
   extend type Query {
     users: [User]
+    loginUser(loginUserInput: LoginUserInput!): LoginUserResponse!
   },
 
   extend type Mutation {
@@ -35,7 +36,6 @@ const typeDefs = gql`
     deleteUser(_id: ID!): User
     toggleActiveUser(_id: ID!, isActive: Boolean!): User
     toggleAdminUser(_id: ID!, isAdmin: Boolean!): User
-    loginUser(loginUserInput: LoginUserInput!): LoginUserResponse!
   }
 `;
 

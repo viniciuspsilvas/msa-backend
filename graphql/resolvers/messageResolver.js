@@ -15,9 +15,6 @@ const channels_client = new Pusher({
   encrypted: true
 });
 
-
-
-
 // Provide resolver functions for the GraphQL schema
 const resolvers = {
   DateTime: GraphQLDateTime,
@@ -40,7 +37,7 @@ const resolvers = {
    * the messages list and return message after successfully adding to list
    */
   Mutation: {
-    sendMessageBatch: (root, {message}, context, info) => {
+    sendMessageBatch: (root, { message }, context, info) => {
       const { title, body, students, scheduledFor } = message;
 
       const start = async () => {

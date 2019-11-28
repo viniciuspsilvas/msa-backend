@@ -1,6 +1,7 @@
 const User = require('../models/user');
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const { requiresLogin } = include('server/security/authorizer'); 
 
 const SALT_HASH = 4;
 
@@ -11,13 +12,32 @@ const resolvers = {
    * and get all User documents.
    */
   Query: {
-    users: (parent, args, context) => {
+    users: requiresLogin((parent, args, context) => {
       // In this case, we'll pretend there is no data when
       // we're not logged in. Another option would be to
       // throw an error.
       /*   if (!context.token) return null; */
 
       return User.find({})
+    }),
+
+    /*********************************/
+    /** loginUser implementation  */
+    /*********************************/
+    loginUser: async (parent, { loginUserInput }, context) => {
+
+      const { username, password } = loginUserInput;
+      const user = await User.findOne({ username });
+
+      if (!user) throw new Error('Incorrect username or password.');
+      const isMatch = bcryptjs.compareSync(password, user.password);
+      if (!isMatch) throw new Error('Incorrect username or password.');
+
+      const { SECRET_TOKEN, TOKEN_EXPIRES_IN } = process.env;
+      const token = jwt.sign({ user }, SECRET_TOKEN, { expiresIn: TOKEN_EXPIRES_IN })
+
+      user.password = "";
+      return { token, user }
     }
   },
   /**
@@ -25,7 +45,7 @@ const resolvers = {
    * the users list and return user after successfully adding to list
    */
   Mutation: {
-    createUser: async (root, { userInput }, context, info) => {
+    createUser: requiresLogin(async (root, { userInput }, context, info) => {
 
       const { username, password } = userInput;
       const isActive = true;
@@ -35,38 +55,19 @@ const resolvers = {
       user.password = "";
 
       return user;
-    },
+    }),
 
-    deleteUser: async (parent, _id) => {
+    deleteUser: requiresLogin(async (parent, _id) => {
       return await User.findByIdAndDelete(_id);
-    },
+    }),
 
-    toggleActiveUser: async (root, { _id, isActive }, context, info) => {
+    toggleActiveUser: requiresLogin(async (root, { _id, isActive }, context, info) => {
       return await User.findByIdAndUpdate(_id, { isActive }, { new: true });
-    },
+    }),
 
-    toggleAdminUser: async (root, { _id, isAdmin }, context, info) => {
+    toggleAdminUser: requiresLogin(async (root, { _id, isAdmin }, context, info) => {
       return await User.findByIdAndUpdate(_id, { isAdmin }, { new: true });
-    },
-
-    /*********************************/
-    /** loginUser implementation  */
-    /*********************************/
-    loginUser: async (parent, { loginUserInput }, ctx, info) => {
-
-      const { username, password } = loginUserInput;
-      const user = await User.findOne({ username });
-
-      if (!user) throw new Error('Unable to Login');
-      const isMatch = bcryptjs.compareSync(password, user.password);
-      if (!isMatch) throw new Error('Unable to Login');
-
-      const { SECRET_TOKEN, TOKEN_EXPIRES_IN } = process.env;
-      const token = jwt.sign({ user }, SECRET_TOKEN, { expiresIn: TOKEN_EXPIRES_IN })
-
-      user.password = "";
-      return { token, user }
-    }
+    }),
 
   }
 };
