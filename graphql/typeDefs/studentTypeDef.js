@@ -11,6 +11,7 @@ const typeDefs = gql`
     phone: String,
     username: String,
     device: Device,
+    isActive: Boolean
 
     enrollments: [Enrollment]
     advices: [Advice]
@@ -37,6 +38,7 @@ const typeDefs = gql`
     lastname: String,
     phone: String,
     username: String,
+    isActive: Boolean
   },
 
   extend type Query {
@@ -46,7 +48,7 @@ const typeDefs = gql`
   extend type Mutation {
     createStudent(input: StudentInput!): Student,
     deleteStudent(_id: ID!): Student
-    updateStudentName(_id: ID!, name: String!): Student
+    activeStudent(_id: ID!, isActive: Boolean!): Student
     loginStudent(loginInput: LoginInput!): LoginResponse!
   }
 `;
