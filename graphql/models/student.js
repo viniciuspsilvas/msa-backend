@@ -7,6 +7,7 @@ const schema = new Schema({
   lastname: String,
   phone: String,
   username: String,
+  isActive: Boolean,
 
   device: { type: Schema.Types.ObjectId, ref: 'Device' },
 

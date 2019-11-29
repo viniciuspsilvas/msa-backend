@@ -4,6 +4,7 @@ const Device = require('../models/device');
 const jwt = require('jsonwebtoken');
 const axios = require('axios');
 const { AuthenticationError } = require('apollo-server');
+const { requiresLogin } = include('server/security/authorizer');
 
 // Provide resolver functions for the GraphQL schema
 const resolvers = {
@@ -12,7 +13,7 @@ const resolvers = {
    * and get all Student documents.
    */
   Query: {
-    students: () => {
+    students: requiresLogin(() => {
       const students = Student.find({})
         .populate({
           path: 'enrollments',
@@ -22,8 +23,8 @@ const resolvers = {
         })
 
       return students;
-    },
-    studentByID: (parent, { _id }) => {
+    }),
+    studentByID: requiresLogin((parent, { _id }) => {
       const student = Student.findById(_id)
         .populate({
           path: 'enrollments',
@@ -33,14 +34,14 @@ const resolvers = {
         })
 
       return student;
-    }
+    })
   },
   /**
    * A GraphQL Mutation that provides functionality for adding student to
    * the students list and return student after successfully adding to list
    */
   Mutation: {
-    createStudent: (root, args, context, info) => {
+    createStudent: requiresLogin((root, args, context, info) => {
       const student = args.input;
 
       const newStudent = new Student({
@@ -54,26 +55,26 @@ const resolvers = {
       });
 
       return newStudent.save();
-    },
+    }),
 
     /**********************************/
     /** deleteStudent implementation  */
     /**********************************/
-    deleteStudent: async (parent, _id) => {
+    deleteStudent: requiresLogin(async (parent, _id) => {
       var student = await Student.findById(_id);
       if (student.enrollments && student.enrollments.length > 0) {
         throw `Student [id=${_id}] has ${student.enrollments.length} enrollments.`
       }
 
       return await Student.findByIdAndDelete(_id);
-    },
+    }),
 
     /**************************************/
-    /** updateStudentName implementation  */
+    /** activeStudent implementation  */
     /**************************************/
-    updateStudentName: async (parent, { _id, name }) => {
-      return await Student.findOneAndUpdate(_id, { name: name }, { new: true });
-    },
+    activeStudent: requiresLogin(async (parent, { _id, isActive }) => {
+      return await Student.findOneAndUpdate({_id}, { isActive }, { new: true });
+    }),
 
     /*********************************/
     /** loginStudent implementation  */
@@ -102,12 +103,22 @@ const resolvers = {
         username: studentMoodle.username,
       }
 
-      let student = await Student.findOneAndUpdate({ email: username }, studentDetails)
+      let student = await Student.findOne({ email: username })
+
       /** if the student is not found in MSA-db, it should be include. */
       if (!student) {
+        student.isActive = true;
         student = await Student.create(studentDetails);
-      } else if (!await Device.exists({ "token": tokenDevice, student })) {
-        await Device.deleteMany({ student }); // Case the student is doing login with a new device
+
+      } else if (!student.isActive) {
+        throw new Error(`Student is not active.`);
+
+      } else {
+        //Update the student details with infos from Moodle
+        student = await Student.findOneAndUpdate({ email: username }, studentDetails)
+        if (!await Device.exists({ "token": tokenDevice, student })) {
+          await Device.deleteMany({ student }); // Case the student is doing login with a new device
+        }
       }
 
       const deviceInput = {
@@ -131,7 +142,7 @@ const resolvers = {
         },
       )
       return { token, student, device }
-    }
+    },
 
   }
 };

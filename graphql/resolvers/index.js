@@ -11,7 +11,7 @@ const config = require("./configResolver");
 const user = require("./userResolver");
 
 
-const protectedModules = [student, enrollment, device, course]
-const modules = [user, post, advice, config, message];
+const protectedModules = [ enrollment, device, course]
+const modules = [student,user, post, advice, config, message];
 
 module.exports = modules.concat(protectedModules.map(m => requiresLogin(m)));
