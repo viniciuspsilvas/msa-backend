@@ -42,13 +42,13 @@ const typeDefs = gql`
   },
 
   extend type Query {
-    students: [Student],
+    students(filter: StudentInput): [Student],
     studentByID(_id: ID!): Student
   },
   extend type Mutation {
     createStudent(input: StudentInput!): Student,
     deleteStudent(_id: ID!): Student
-    activeStudent(_id: ID!, isActive: Boolean!): Student
+    activeStudent(_ids: [ID!]!, isActive: Boolean!): Int
     loginStudent(loginInput: LoginInput!): LoginResponse!
   }
 `;

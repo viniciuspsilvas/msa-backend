@@ -24,7 +24,7 @@ const resolvers = {
    * and get all Message documents.
    */
   Query: {
-    messages: () => Message.find({}).populate('student'),
+    messages: () => Message.find({}).populate('student').sort({ createdAt: 'desc' }),
 
     messagesSentByStudent: (parent, { student }) => {
       const messages = Message.find({ student, "sentAt": { $ne: null } }).sort({ createdAt: 'desc' }).populate('student')
