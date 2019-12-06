@@ -13,8 +13,8 @@ const resolvers = {
    * and get all Student documents.
    */
   Query: {
-    students: requiresLogin(() => {
-      const students = Student.find({})
+    students: requiresLogin((parent, { filter }) => {
+      const students = Student.find(filter)
         .populate({
           path: 'enrollments',
           populate: {
@@ -72,8 +72,9 @@ const resolvers = {
     /**************************************/
     /** activeStudent implementation  */
     /**************************************/
-    activeStudent: requiresLogin(async (parent, { _id, isActive }) => {
-      return await Student.findOneAndUpdate({_id}, { isActive }, { new: true });
+    activeStudent: requiresLogin(async (parent, { _ids, isActive }) => {
+      const res = await Student.updateMany({ _id: { $in: _ids } }, { isActive })
+      return res.nModified;
     }),
 
     /*********************************/

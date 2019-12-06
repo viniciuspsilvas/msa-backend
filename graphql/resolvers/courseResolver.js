@@ -7,13 +7,18 @@ const resolvers = {
    * and get all Course documents.
    */
   Query: {
-    courses: () => Course.find({})
-    .populate({ 
-      path: 'enrollments',
-      populate: {
-        path: 'student',
-      } 
-   })
+    courses: async () => {
+      const courseList = await Course.find({})
+        .populate({
+          path: 'enrollments',
+          populate: {
+            path: 'student',
+           // match: { isActive: true },
+          }
+        });
+
+      return courseList;
+    }
   },
   /**
    * A GraphQL Mutation that provides functionality for adding course to
@@ -22,7 +27,7 @@ const resolvers = {
   Mutation: {
     createCourse: (root, args, context, info) => {
 
-      const  course = args.input;
+      const course = args.input;
       const newCourse = new Course({ name: course.name, description: course.description });
       return newCourse.save();
     },
