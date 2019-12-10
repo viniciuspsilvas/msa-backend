@@ -7,12 +7,13 @@ global.include = function(file) {
 }
 
 const mongoose = require('mongoose');
-const { ApolloServer, AuthenticationError } = require('apollo-server');
+const { ApolloServer } = require('apollo-server');
 const jwt = require('jsonwebtoken');
 
 const typeDefs = require('./graphql/typeDefs/');
 const resolvers = require('./graphql/resolvers/');
 
+const notificationRobot = require('./server/services/notificationRobot')
 
 const { SECRET_TOKEN, MONGO_USER, MONGO_PASSWORD, MONGO_DB, SERVER_URL, SERVER_PORT } = process.env;
 
@@ -54,3 +55,4 @@ mongoose.connect(DB_URI, { useUnifiedTopology: true, useNewUrlParser: true })
     console.log(err)
   })
 
+  notificationRobot();

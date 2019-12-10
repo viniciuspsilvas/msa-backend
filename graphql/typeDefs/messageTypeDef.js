@@ -12,7 +12,7 @@ const typeDefs = gql`
     body: String,
     createdAt: DateTime,
     sentAt: DateTime,
-    scheduledFor: String,
+    scheduledFor: DateTime,
     isRead: Boolean,
     isDownloaded: Boolean,
     isArchived: Boolean,
@@ -28,14 +28,14 @@ const typeDefs = gql`
   extend type Mutation {
     
     setMessageAsRead(_id: ID!): Message,
-    deleteMessage(id: String!): Message,
+    deleteMessage(_id: ID!): Message,
     sendMessageBatch(message: MessageInput!): [Message]
   }
 
   input MessageInput {
     title: String,
     body: String,
-    scheduledFor: String,
+    scheduledFor: DateTime,
     students: [StudentInput!]!
   }
 `;
