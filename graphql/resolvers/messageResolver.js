@@ -51,11 +51,13 @@ const resolvers = {
             body,
             student: student1,
             createdAt: new Date().toISOString(),
-            //scheduledFor,
+            scheduledFor,
             isRead: false,
             isDownloaded: false,
             isArchived: false,
-            sentAt: new Date().toISOString()
+
+            // There is no scheduledFor means the notification should be send now
+            sentAt: scheduledFor ? null : new Date().toISOString()
           }
 
           const newMessage = await new Message(dataMsg).save();
@@ -64,7 +66,8 @@ const resolvers = {
           student1.messages.push(newMessage)
           await student1.save();
 
-          notif.sendNotification(student1.device.token, title);
+          // There is no scheduledFor means the notification should be send now
+          if (!scheduledFor) notif.sendNotification(student1.device.token, title);
 
           channels_client.trigger(process.env.PUSHER_MSA_MESSAGE_CHANNEL, `msa.message.student.${student1._id}`, {
             "message": "New message to student=" + student1._id
@@ -75,12 +78,11 @@ const resolvers = {
       return start();
     },
 
-    deleteMessage: async (root, args, context, info) => {
-      const { id } = args;
-      const message = await Message.findById(id).populate('student');
+    deleteMessage: async (root, { _id }, context, info) => {
+      const message = await Message.findById(_id).populate('student');
 
       await Student.updateOne({ _id: message.student.id }, { $pull: { messages: message.id } })
-      return await Message.findByIdAndDelete(id);
+      return await Message.findByIdAndDelete(_id);
     },
 
     setMessageAsRead: async (root, { _id }, context, info) => {
