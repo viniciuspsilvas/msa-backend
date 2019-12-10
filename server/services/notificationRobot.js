@@ -5,7 +5,7 @@ var notif = require('./notifications')
 const Message = require('../../graphql/models/message');
 
 module.exports = async () => {
-    console.log("TASK SCHEDULER is running.")
+    console.log("TASK SCHEDULER is running.", new Date())
 
     var rule = new schedule.RecurrenceRule();
     rule.second = 10;
