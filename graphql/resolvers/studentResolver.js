@@ -42,16 +42,10 @@ const resolvers = {
    */
   Mutation: {
     createStudent: requiresLogin((root, args, context, info) => {
-      const student = args.input;
+      const { name, email, firstname, lastname, phone, username } = args.input;
 
       const newStudent = new Student({
-        name: student.name,
-        email: student.email,
-        firstname: student.firstname,
-        lastname: student.lastname,
-        phone: student.phone,
-        username: student.username,
-
+        name, email, firstname, lastname, phone, username
       });
 
       return newStudent.save();
@@ -108,7 +102,7 @@ const resolvers = {
 
       /** if the student is not found in MSA-db, it should be include. */
       if (!student) {
-        student.isActive = true;
+        studentDetails.isActive = true;
         student = await Student.create(studentDetails);
 
       } else if (!student.isActive) {
