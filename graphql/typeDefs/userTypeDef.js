@@ -7,6 +7,10 @@ const typeDefs = gql`
     username: String!,
     password: String!,
 
+    email: String!,
+    firstname: String!,
+    lastname: String!,
+
     isActive: Boolean!,
     isAdmin: Boolean!,
   },
@@ -14,6 +18,13 @@ const typeDefs = gql`
   input UserInput {
     username: String!,
     password: String!,
+
+    email: String,
+    firstname: String,
+    lastname: String,
+
+    isActive: Boolean,
+    isAdmin: Boolean,
   },
 
   type LoginUserResponse {

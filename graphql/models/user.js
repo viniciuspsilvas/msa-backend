@@ -4,6 +4,10 @@ const schema = new Schema({
   username: String,
   password: String,
 
+  email: String,
+  firstname: String,
+  lastname: String,
+
   isActive: Boolean,
   isAdmin: Boolean,
 });
