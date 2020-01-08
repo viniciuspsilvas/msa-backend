@@ -56,7 +56,6 @@ const resolvers = {
       }
 
       user.password = "";
-
       return user;
     }),
 
