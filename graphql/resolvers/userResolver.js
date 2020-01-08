@@ -1,7 +1,7 @@
 const User = require('../models/user');
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { requiresLogin } = include('server/security/authorizer'); 
+const { requiresLogin } = include('server/security/authorizer');
 
 const SALT_HASH = 4;
 
@@ -26,8 +26,8 @@ const resolvers = {
     /*********************************/
     loginUser: async (parent, { loginUserInput }, context) => {
 
-      const { username, password } = loginUserInput;
-      const user = await User.findOne({ username });
+      const { email, password } = loginUserInput;
+      const user = await User.findOne({ email });
 
       if (!user) throw new Error('Incorrect username or password.');
       const isMatch = bcryptjs.compareSync(password, user.password);
@@ -45,13 +45,16 @@ const resolvers = {
    * the users list and return user after successfully adding to list
    */
   Mutation: {
-    createUser: requiresLogin(async (root, { userInput }, context, info) => {
+    saveUser: requiresLogin(async (root, { userInput }, context, info) => {
+      userInput.password = bcryptjs.hashSync(userInput.password, SALT_HASH);
 
-      const { username, password } = userInput;
-      const isActive = true;
-      const isAdmin = false;
+      var user;
+      if (userInput._id) {
+        user = await User.findByIdAndUpdate(userInput._id, userInput, { new: true });
+      } else {
+        user = await new User(userInput).save();
+      }
 
-      const user = await new User({ username, password: bcryptjs.hashSync(password, SALT_HASH), isActive, isAdmin }).save();
       user.password = "";
 
       return user;

@@ -4,16 +4,24 @@ const { gql } = require('apollo-server-express');
 const typeDefs = gql`
   type User {
     _id: ID!,
-    username: String!,
     password: String!,
+    email: String!,
+    firstname: String,
+    lastname: String,
 
     isActive: Boolean!,
     isAdmin: Boolean!,
   },
 
   input UserInput {
-    username: String!,
+    _id: ID,
     password: String!,
+    email: String,
+    firstname: String,
+    lastname: String,
+
+    isActive: Boolean,
+    isAdmin: Boolean,
   },
 
   type LoginUserResponse {
@@ -22,7 +30,7 @@ const typeDefs = gql`
   }
 
   input LoginUserInput {
-    username: String!
+    email: String!
     password: String!
   }
 
@@ -32,7 +40,7 @@ const typeDefs = gql`
   },
 
   extend type Mutation {
-    createUser(userInput: UserInput!): User,
+    saveUser(userInput: UserInput!): User,
     deleteUser(_id: ID!): User
     toggleActiveUser(_id: ID!, isActive: Boolean!): User
     toggleAdminUser(_id: ID!, isAdmin: Boolean!): User
