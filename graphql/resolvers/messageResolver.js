@@ -66,12 +66,15 @@ const resolvers = {
           student1.messages.push(newMessage)
           await student1.save();
 
-          // There is no scheduledFor means the notification should be send now
-          if (!scheduledFor) notif.sendNotification(student1.device.token, title);
-
           channels_client.trigger(process.env.PUSHER_MSA_MESSAGE_CHANNEL, `msa.message.student.${student1._id}`, {
             "message": "New message to student=" + student1._id
+          }, null, () => {
+
+            // There is no scheduledFor means the notification should be send now
+            if (!scheduledFor) notif.sendNotification(student1.device.token, title);
           });
+
+
         });
         return messages;
       }
