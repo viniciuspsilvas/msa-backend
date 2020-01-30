@@ -71,7 +71,7 @@ const resolvers = {
           }, null, () => {
 
             // There is no scheduledFor means the notification should be send now
-            if (!scheduledFor) notif.sendNotification(student1.device.token, title);
+            if (!scheduledFor && student1.device) notif.sendNotification(student1.device.token, title);
           });
 
 

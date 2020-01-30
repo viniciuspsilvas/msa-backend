@@ -50,6 +50,7 @@ const typeDefs = gql`
     deleteStudent(_id: ID!): Student
     activeStudent(_ids: [ID!]!, isActive: Boolean!): Int
     loginStudent(loginInput: LoginInput!): LoginResponse!
+    logoutStudent(_id: ID!): Boolean!
   }
 `;
 
