@@ -32,8 +32,9 @@ module.exports = async () => {
                     dataActual >= new Date(message.scheduledFor))
 
             if (isSend) {
-                console.log("Sending message => ", message._id)
-                notif.sendNotification(message.student.device.token, message.title);
+                if (message.student.device){
+                    notif.sendNotification(message.student.device.token, message.title);
+                }
 
                 message.sentAt = dataActual;
                 message.save();

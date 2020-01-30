@@ -21,6 +21,7 @@ const resolvers = {
             path: 'course',
           }
         })
+        .populate('device')
 
       return students;
     }),
@@ -62,6 +63,15 @@ const resolvers = {
 
       return await Student.findByIdAndDelete(_id);
     }),
+
+    /**************************************/
+    /** logoutStudent implementation  */
+    /**************************************/
+    logoutStudent: async (parent, _id) => {
+      student = await Student.findOneAndUpdate({ _id }, { device: null })
+      const res = await Device.deleteMany({ student });
+      return res.n > 0;
+    },
 
     /**************************************/
     /** activeStudent implementation  */
