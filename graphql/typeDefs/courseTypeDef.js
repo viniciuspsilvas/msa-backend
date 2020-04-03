@@ -6,6 +6,7 @@ const typeDefs = gql`
     _id: ID,
     name: String,
     description: String,
+    active: Boolean,
 
     enrollments: [Enrollment]
   },
@@ -14,6 +15,7 @@ const typeDefs = gql`
     _id: ID,
     name: String,
     description: String,
+    active: Boolean,
   },
 
   extend type Query {
@@ -22,7 +24,7 @@ const typeDefs = gql`
   extend type Mutation {
     createCourse(input: CourseInput!): Course,
     deleteCourse(_id: ID!): Course
-    updateCourseNameDesc(_id: ID!, name: String!, description: String): Course
+    updateCourse(input: CourseInput!): Course
   }
 `;
 

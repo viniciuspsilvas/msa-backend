@@ -13,7 +13,7 @@ const resolvers = {
           path: 'enrollments',
           populate: {
             path: 'student',
-           // match: { isActive: true },
+            // match: { isActive: true },
           }
         });
 
@@ -28,7 +28,7 @@ const resolvers = {
     createCourse: (root, args, context, info) => {
 
       const course = args.input;
-      const newCourse = new Course({ name: course.name, description: course.description });
+      const newCourse = new Course({ name: course.name, description: course.description, active: course.active });
       return newCourse.save();
     },
 
@@ -42,8 +42,15 @@ const resolvers = {
       return await Course.findByIdAndDelete(_id);
     },
 
-    updateCourseNameDesc: async (parent, { _id, name, description }) => {
-      return await Course.findByIdAndUpdate(_id, { name: name, description: description }, { new: true });
+    updateCourse: async (parent, args) => {
+      const course = args.input;
+      const data = {
+        name: course.name,
+        description: course.description,
+        active: course.active,
+      }
+
+      return await Course.findByIdAndUpdate(course._id, data, { new: true });
     }
   }
 };
