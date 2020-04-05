@@ -88,6 +88,16 @@ const resolvers = {
       return await Message.findByIdAndDelete(_id);
     },
 
+    deleteMessages: async (root, { _ids }, context, info) => {
+      await _ids.forEach(async _id => {
+        const message = await Message.findById(_id).populate('student');
+        if (message) {
+          await Student.updateOne({ _id: message.student.id }, { $pull: { messages: message.id } })
+          await Message.findByIdAndDelete(_id);
+        }
+      })
+    },
+
     setMessageAsRead: async (root, { _id }, context, info) => {
       return await Message.updateMany({ _id }, { isRead: true });
     },
