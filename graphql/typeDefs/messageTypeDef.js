@@ -29,6 +29,7 @@ const typeDefs = gql`
     
     setMessageAsRead(_id: ID!): Message,
     deleteMessage(_id: ID!): Message,
+    deleteMessages(_ids: [ID!]): Int,
     sendMessageBatch(message: MessageInput!): [Message]
   }
 
